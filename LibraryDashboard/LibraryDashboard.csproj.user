@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Button\Author.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\Books.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\Dashboard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\Library.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\Student.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\Teacher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Design\RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="LoginRegister\Login.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="LoginRegister\Menu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="LoginRegister\Register.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="LoginRegister\UserData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Navigation\LeftNavigation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Navigation\TopNavigation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

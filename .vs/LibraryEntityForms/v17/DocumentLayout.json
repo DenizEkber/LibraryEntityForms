@@ -1,0 +1,376 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\loginregister\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\loginregister\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\loginregister\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\loginregister\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\librarydashboard\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\controlbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\controlbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\navigation\\topnavigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\navigation\\topnavigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\navigation\\leftnavigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\navigation\\leftnavigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\library.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\library.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\button\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\button\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\loginregister\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\loginregister\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\loginregister\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\loginregister\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\design\\roundedbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\design\\roundedbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\design\\roundcorner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\design\\roundcorner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\design\\panelcreated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\design\\panelcreated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\librarydashboard\\librarydashboard.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8A6F81F2-F306-4E45-A7CA-A02B927E077A}|LibraryDashboard\\LibraryDashboard.csproj|solutionrelative:librarydashboard\\librarydashboard.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C063ADC4-78C3-4D44-9C5D-7E11928B5DF6}|LibraryEntityForms\\LibraryEntityForms.csproj|c:\\users\\lenovo\\desktop\\libraryentityforms\\libraryentityforms\\codefirst\\entity\\userdata\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C063ADC4-78C3-4D44-9C5D-7E11928B5DF6}|LibraryEntityForms\\LibraryEntityForms.csproj|solutionrelative:libraryentityforms\\codefirst\\entity\\userdata\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 284,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Program.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Program.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Program.cs",
+              "RelativeToolTip": "LibraryDashboard\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:42:48.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Form1.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Form1.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Form1.cs",
+              "RelativeToolTip": "LibraryDashboard\\Form1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:41:59.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ControlBar.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\ControlBar.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\ControlBar.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\ControlBar.cs",
+              "RelativeToolTip": "LibraryDashboard\\ControlBar.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:41:25.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TopNavigation.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Navigation\\TopNavigation.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Navigation\\TopNavigation.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Navigation\\TopNavigation.cs",
+              "RelativeToolTip": "LibraryDashboard\\Navigation\\TopNavigation.cs",
+              "ViewState": "AQIAAGsAAAAAAAAAAAAgwG8AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:40:56.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Register.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Register.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\LoginRegister\\Register.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Register.cs",
+              "RelativeToolTip": "LibraryDashboard\\LoginRegister\\Register.cs",
+              "ViewState": "AQIAALEAAAAAAAAAAAAYwMAAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:37:27.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Menu.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\LoginRegister\\Menu.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Menu.cs",
+              "RelativeToolTip": "LibraryDashboard\\LoginRegister\\Menu.cs",
+              "ViewState": "AQIAAKoAAAAAAAAAAAAwwIcAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:36:35.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Login.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\LoginRegister\\Login.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\Login.cs",
+              "RelativeToolTip": "LibraryDashboard\\LoginRegister\\Login.cs",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAYwHEAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:36:06.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RoundedButton.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\RoundedButton.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Design\\RoundedButton.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\RoundedButton.cs",
+              "RelativeToolTip": "LibraryDashboard\\Design\\RoundedButton.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:35:42.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PanelCreated.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\PanelCreated.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Design\\PanelCreated.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\PanelCreated.cs",
+              "RelativeToolTip": "LibraryDashboard\\Design\\PanelCreated.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAzwA4AAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:35:36.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Library.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Library.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Library.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Library.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Library.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGIAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:33:35.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Books.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Books.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Books.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Books.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Books.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAG0AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:31:27.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Author.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Author.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Author.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Author.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Author.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGMAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T16:30:07.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LeftNavigation.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Navigation\\LeftNavigation.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Navigation\\LeftNavigation.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Navigation\\LeftNavigation.cs",
+              "RelativeToolTip": "LibraryDashboard\\Navigation\\LeftNavigation.cs",
+              "ViewState": "AQIAAK4AAAAAAAAAAAAowL4AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-18T07:45:46.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Dashboard.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Dashboard.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Dashboard.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Dashboard.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Dashboard.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T12:33:29.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryEntityForms\\CodeFirst\\Entity\\UserData\\Users.cs",
+              "RelativeDocumentMoniker": "LibraryEntityForms\\CodeFirst\\Entity\\UserData\\Users.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryEntityForms\\CodeFirst\\Entity\\UserData\\Users.cs",
+              "RelativeToolTip": "LibraryEntityForms\\CodeFirst\\Entity\\UserData\\Users.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T07:51:55.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserData.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\UserData.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\LoginRegister\\UserData.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LoginRegister\\UserData.cs",
+              "RelativeToolTip": "LibraryDashboard\\LoginRegister\\UserData.cs",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAgwFIAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T11:40:22.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Form1.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Form1.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Form1.cs [Design]",
+              "RelativeToolTip": "LibraryDashboard\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T12:32:09.2Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Teacher.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Teacher.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Teacher.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Teacher.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Teacher.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGUAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T09:34:56.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Student.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Button\\Student.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Button\\Student.cs",
+              "RelativeToolTip": "LibraryDashboard\\Button\\Student.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T09:35:03.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LibraryDashboard.csproj",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LibraryDashboard.csproj",
+              "RelativeDocumentMoniker": "LibraryDashboard\\LibraryDashboard.csproj",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\LibraryDashboard.csproj",
+              "RelativeToolTip": "LibraryDashboard\\LibraryDashboard.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-18T08:21:28.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "RoundCorner.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\RoundCorner.cs",
+              "RelativeDocumentMoniker": "LibraryDashboard\\Design\\RoundCorner.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\Design\\RoundCorner.cs",
+              "RelativeToolTip": "LibraryDashboard\\Design\\RoundCorner.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvxcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-18T07:10:48.903Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
