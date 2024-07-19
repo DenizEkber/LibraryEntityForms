@@ -128,3 +128,4 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\r
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\LibraryEntityForms.pdb
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\LibraryEntityForms.genruntimeconfig.cache
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\ref\LibraryEntityForms.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\LibraryEntityForms.sourcelink.json

@@ -15,6 +15,6 @@ namespace LibraryEntityForms.CodeFirst.Entity.UserData
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        public virtual ICollection<UserDetail> UserDetails { get; set; }
+        public virtual UserDetail UserDetails { get; set; }
     }
 }

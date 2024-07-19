@@ -18,8 +18,8 @@ namespace LibraryEntityForms.CodeFirst.Configuration.UserData
                .ValueGeneratedOnAdd();
 
             builder.HasOne(p => p.Users)
-                .WithMany(p => p.UserDetails)
-                .HasForeignKey(p => p.Id_User);
+                .WithOne(p => p.UserDetails)
+                .HasForeignKey<UserDetail>(p => p.Id_User);
         }
     }
 }

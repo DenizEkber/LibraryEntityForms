@@ -79,3 +79,4 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-win
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\LiveCharts.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\System.Speech.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Speech.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\obj\Debug\net8.0-windows\LibraryDashboard.sourcelink.json
