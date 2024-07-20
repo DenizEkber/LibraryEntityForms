@@ -263,7 +263,7 @@ namespace LibraryDashboard
                 Panel booksByThemesPanel = pc.CreatePanel(new Point(947, 20), new Size(542, 506), Color.White);
                 booksByThemesPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 542, 506, 20, 20));
                 Label booksByThemesLabel = pc.CreateLabel("Books By Themes", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200,40));
-                Chart booksByThemesChart = CreateDountChart(new Point(50, 50), new Size(470, 420), ReadBookThemes());
+                LiveCharts.WinForms.PieChart booksByThemesChart = CreateDountChart(new Point(50, 50), new Size(470, 420), ReadBookThemes());
                 booksByThemesPanel.Controls.Add(booksByThemesLabel);
                 booksByThemesPanel.Controls.Add(booksByThemesChart);
                 this.Controls.Add(booksByThemesPanel);
@@ -272,7 +272,7 @@ namespace LibraryDashboard
                 Panel booksByCategoryPanel = pc.CreatePanel(new Point(20, 540), new Size(645, 319), Color.White);
                 booksByCategoryPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 645, 319, 20, 20));
                 Label booksByCategoryLabel = pc.CreateLabel("Books By Category", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                Chart booksByCategoryChart = CreateBarChart(new Point(0, 100), new Size(589, 200), ReadBookCategory());
+                LiveCharts.WinForms.CartesianChart booksByCategoryChart = CreateBarChart(new Point(0, 100), new Size(589, 200), ReadBookCategory());
                 booksByCategoryPanel.Controls.Add(booksByCategoryLabel);
                 booksByCategoryPanel.Controls.Add(booksByCategoryChart);
                 this.Controls.Add(booksByCategoryPanel);
@@ -291,7 +291,7 @@ namespace LibraryDashboard
                 Panel teachersVsStudentsPanel = pc.CreatePanel(new Point(1140, 540), new Size(371, 319), Color.White);
                 teachersVsStudentsPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 371, 319, 20, 20));
                 Label teachersVsStudentsLabel = pc.CreateLabel("Teachers vs Students", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                Chart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 50), new Size(334, 157),data());
+                LiveCharts.WinForms.CartesianChart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 50), new Size(334, 157),data());
                 var query = data().First();
                 Label totalLabel = new Label
                 {
@@ -309,7 +309,7 @@ namespace LibraryDashboard
             }
         }
 
-        private Chart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
+        /*private Chart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
         {
             Chart chart = new Chart
             {
@@ -375,14 +375,51 @@ namespace LibraryDashboard
 
 
             return chart;
+        }*/
+
+        private LiveCharts.WinForms.CartesianChart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
+        {
+            var cartesianChart = new LiveCharts.WinForms.CartesianChart
+            {
+                Location = location,
+                Size = size,
+                LegendLocation = LegendLocation.Bottom
+            };
+
+            var teachersSeries = new LiveCharts.Wpf.ColumnSeries
+            {
+                Title = "Teachers",
+                Values = new ChartValues<int>(data.Select(d => d.TeachersCount)),
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(130, 205, 71))
+            };
+
+            var studentsSeries = new LiveCharts.Wpf.ColumnSeries
+            {
+                Title = "Students",
+                Values = new ChartValues<int>(data.Select(d => d.StudentsCount)),
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 217, 61))
+            };
+
+            cartesianChart.Series.Add(teachersSeries);
+            cartesianChart.Series.Add(studentsSeries);
+
+            cartesianChart.AxisX.Add(new LiveCharts.Wpf.Axis
+            {
+                Labels = data.Select(d => d.Month.ToString("MMM")).ToList()
+            });
+
+            cartesianChart.AxisY.Add(new LiveCharts.Wpf.Axis
+            {
+                LabelFormatter = value => value.ToString("N")
+            });
+
+            return cartesianChart;
         }
 
 
-      
 
-        
 
-        private Chart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
+        /*private Chart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
         {
             Chart chart = new Chart
             {
@@ -401,10 +438,7 @@ namespace LibraryDashboard
                 Name = "BooksByThemes"
             };
 
-            // Örnek veri
-            /*series.Points.Add(new DataPoint(0, 100) { Label = "Category A", LegendText = "Category A", Color = Color.Red });
-            series.Points.Add(new DataPoint(0, 0) { Label = "Category B", LegendText = "Category B", Color = Color.Green });
-            series.Points.Add(new DataPoint(0, 0) { Label = "Category C", LegendText = "Category C", Color = Color.Blue });*/
+
 
             foreach (var theme in ReadBookThemes)
             {
@@ -420,21 +454,46 @@ namespace LibraryDashboard
 
             
 
-            // Her bir dilim için CustomProperties ayarlayın (kenar dışına çıkmasını sağlar)
-            /*foreach (DataPoint point in series.Points)
-            {
-                point.CustomProperties = "PieDrawingStyle=Outside";
-            }*/
 
             // Series'ı chart kontrolüne ekle
             chart.Series.Add(series);
 
             // Chart kontrolünü geri döndür
             return chart;
+        }*/
+
+
+        private LiveCharts.WinForms.PieChart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
+        {
+            var pieChart = new LiveCharts.WinForms.PieChart
+            {
+                Location = location,
+                Size = size,
+                InnerRadius = 100,
+                LegendLocation = LegendLocation.Right
+            };
+
+            foreach (var theme in ReadBookThemes)
+            {
+                double percentage = theme.SumThemes > 0 ? (double)theme.UsageCount / theme.SumThemes * 100 : 0;
+
+                pieChart.Series.Add(new LiveCharts.Wpf.PieSeries
+                {
+                    Title = theme.BookThemes,
+                    Values = new ChartValues<double> { percentage },
+                    DataLabels = true,
+                    LabelPoint = chartPoint => $" {chartPoint.Y:F2}%",
+                    Foreground = System.Windows.Media.Brushes.Black, 
+                    FontWeight = System.Windows.FontWeights.Bold,
+                    LabelPosition = PieLabelPosition.OutsideSlice
+                });
+            }
+
+            return pieChart;
         }
 
 
-        private Chart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)
+        /*private Chart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)
         {
             Chart chart = new Chart
             {
@@ -474,12 +533,7 @@ namespace LibraryDashboard
 
                 series.Points.AddXY($"{category.BookCategory}", category.UsageCount);
             }
-            // Gridlines ve Major/Minor Ticklerı kaldırma
-            /*chartArea.AxisX.MajorGrid.Enabled = true; // X ekseni büyük çizgileri etkinleştir
-            chartArea.AxisX.MajorGrid.LineColor = Color.LightGray; // X ekseni büyük çizgileri rengi
-            chartArea.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid; // X ekseni büyük çizgileri stil*/
-            //chartArea.AxisX.MinorGrid.Enabled = false; // X ekseni küçük çizgileri kaldır
-
+            
             
 
             // Yatay ve dikey eksenlerin çizgi rengini ve kalınlığını ayarla
@@ -490,6 +544,38 @@ namespace LibraryDashboard
             chart.Series.Add(series);
 
             return chart;
+        }*/
+
+
+        private LiveCharts.WinForms.CartesianChart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)
+        {
+            var cartesianChart = new LiveCharts.WinForms.CartesianChart
+            {
+                Location = location,
+                Size = size,
+                LegendLocation = LiveCharts.LegendLocation.Bottom
+            };
+
+            var series = new LiveCharts.Wpf.ColumnSeries
+            {
+                Title = "BooksByCategory",
+                Values = new ChartValues<int>(ReadBookCategory.Select(c => c.UsageCount)),
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 149, 255))
+            };
+
+            cartesianChart.Series.Add(series);
+
+            cartesianChart.AxisX.Add(new LiveCharts.Wpf.Axis
+            {
+                Labels = ReadBookCategory.Select(c => c.BookCategory).ToList()
+            });
+
+            cartesianChart.AxisY.Add(new LiveCharts.Wpf.Axis
+            {
+                LabelFormatter = value => value.ToString("N")
+            });
+
+            return cartesianChart;
         }
 
         private LiveCharts.WinForms.CartesianChart CreateLineChart(Point location, Size size, IEnumerable<(DateTime Date, int StudentOverdue, int TeacherOverdue)> OverDue)
@@ -514,10 +600,10 @@ namespace LibraryDashboard
                 Fill = new System.Windows.Media.LinearGradientBrush
                 {
                     GradientStops = new System.Windows.Media.GradientStopCollection
-            {
-                new System.Windows.Media.GradientStop(System.Windows.Media.Colors.LightGreen, 0),
-                new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Transparent, 1)
-            }
+                    {
+                        new System.Windows.Media.GradientStop(System.Windows.Media.Colors.LightGreen, 0),
+                        new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Transparent, 1)
+                    }
                 },
                 PointGeometry = LiveCharts.Wpf.DefaultGeometries.Circle 
             };

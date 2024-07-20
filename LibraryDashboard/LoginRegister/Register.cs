@@ -297,7 +297,12 @@ namespace LibraryDashboard.LoginRegister
                 lblMessage.Text = "Registration successful!";
                 lblMessage.ForeColor = Color.Green;
 
-                
+                Form registerForm = this.FindForm();
+                if (registerForm != null)
+                {
+                    registerForm.Controls.Remove(this);
+                    this.Dispose();
+                }
                 this.Visible = false;
             }
         }

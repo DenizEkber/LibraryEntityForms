@@ -5,9 +5,9 @@ const Sidebar = () => {
   const items = ['Dashboard', 'Books', 'Library', 'Teacher', 'Students', 'Authors', 'Settings', 'Sign Out'];
 
   return (
-    <List>
+    <List >
       {items.map((item, index) => (
-        <ListItem button key={index}>
+        <ListItem button  key={index}>
           <ListItemText primary={item} />
         </ListItem>
       ))}

@@ -155,7 +155,12 @@ namespace LibraryDashboard.LoginRegister
                     user.FirstName,
                     user.UserName
                 };
-
+                Form loginForm = this.FindForm();
+                if (loginForm != null)
+                {
+                    loginForm.Controls.Remove(this);
+                    this.Dispose();
+                }
                 parentForm.LoadDashboard(data);
             }
             else

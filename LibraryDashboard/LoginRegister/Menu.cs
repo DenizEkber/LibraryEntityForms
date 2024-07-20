@@ -1,4 +1,5 @@
 ﻿using LibraryDashboard.Design;
+using LibraryDashboard.Navigation;
 using System;
 using System.Drawing;
 using System.Speech.Recognition;
@@ -187,7 +188,13 @@ namespace LibraryDashboard.LoginRegister
         Register register;
         private void ShowLoginPanel()
         {
-             login = new Login(parentForm);
+            /*Form menuForm = this.FindForm();
+            if (menuForm != null)
+            {
+                menuForm.Controls.Remove(this);
+                this.Dispose();
+            }*/
+            login = new Login(parentForm);
             login.BringToFront();
             
         }
@@ -203,8 +210,13 @@ namespace LibraryDashboard.LoginRegister
 
         private void ShowRegisterPanel()
         {
-            
-             register = new Register(parentForm);
+            /*Form menuForm = this.FindForm();
+            if (menuForm != null)
+            {
+                menuForm.Controls.Remove(this);
+                this.Dispose();
+            }*/
+            register = new Register(parentForm);
             register.BringToFront();
             
         }

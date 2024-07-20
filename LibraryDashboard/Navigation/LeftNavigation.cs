@@ -1,15 +1,23 @@
 ﻿using LibraryDashboard.Design;
+using LibraryDashboard.LoginRegister;
 using LibraryEntityForms.CodeFirst.Entity.UserData;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Speech.Recognition;
+using System.Speech.Synthesis;
+
 using System.Windows.Forms;
 
 namespace LibraryDashboard.Navigation
 {
     public class LeftNavigation : Panel
     {
+        private SpeechRecognitionEngine recognizer;
+        private SpeechSynthesizer synthesizer;
+        private bool isListeningForCommand;
         private Role role;
         private int buttonTop = 130;
+        private Form1 parentPanel;
         private Button selectedButton = null; 
         private List<Button> navigationButtons = new List<Button>();
         private Dashboard dashboardPanel;
@@ -19,8 +27,9 @@ namespace LibraryDashboard.Navigation
         private Teacher teacherPanle;
         private Author authorPanel;
 
-        public LeftNavigation(Form parentForm, Role role)
+        public LeftNavigation(Form1 parentForm, Role role)
         {
+            this.parentPanel = parentForm;
             this.role = role;
             MaximumSize = new Size(345, 1195);
             Height = 1195;
@@ -38,7 +47,7 @@ namespace LibraryDashboard.Navigation
             authorPanel = new Author(parentForm);
             LibraryTop();
             CreateNavigationItems();
-
+            InitializeSpeechRecognition();
             SelectButton(navigationButtons[0]);
         }
 
@@ -132,7 +141,7 @@ namespace LibraryDashboard.Navigation
            
             if (button.Text == "Dashboard")
             {
-                ShowDashboard();
+                dashboardPanel.Visible = true;
             }
             else 
             {
@@ -183,18 +192,182 @@ namespace LibraryDashboard.Navigation
                 authorPanel.Visible = false;
             }
 
+            if(button.Text == "Sign Out")
+            {
+                ClickSignOut();
+                
+            }
 
         }
 
         private void ShowDashboard()
         {
-            
+
             dashboardPanel.Visible = true;
+            booksPanel.Visible = false;
+            libraryPanel.Visible = false;
+            teacherPanle.Visible = false;
+            studentPanel.Visible = false;
+            authorPanel.Visible = false;
+        }
+        private void ShowBooks()
+        {
+
+            dashboardPanel.Visible = false;
+            booksPanel.Visible = true;
+            libraryPanel.Visible = false;
+            teacherPanle.Visible = false;
+            studentPanel.Visible = false;
+            authorPanel.Visible = false;
+        }
+        private void ShowLibrary()
+        {
+
+            dashboardPanel.Visible = false;
+            booksPanel.Visible = false;
+            libraryPanel.Visible = true;
+            teacherPanle.Visible = false;
+            studentPanel.Visible = false;
+            authorPanel.Visible = false;
+        }
+        private void ShowTeacher()
+        {
+
+            dashboardPanel.Visible = false;
+            booksPanel.Visible = false;
+            libraryPanel.Visible = false;
+            teacherPanle.Visible = true;
+            studentPanel.Visible = false;
+            authorPanel.Visible = false;
+        }
+        private void ShowStudents()
+        {
+
+            dashboardPanel.Visible = false;
+            booksPanel.Visible = false;
+            libraryPanel.Visible = false;
+            teacherPanle.Visible = false;
+            studentPanel.Visible = true;
+            authorPanel.Visible = false;
+        }
+        private void ShowAuthors()
+        {
+
+            dashboardPanel.Visible = false;
+            booksPanel.Visible = false;
+            libraryPanel.Visible = false;
+            teacherPanle.Visible = false;
+            studentPanel.Visible = false;
+            authorPanel.Visible = true;
+        }
+        private void ClickSignOut()
+        {
+
+
+            Form dashboardForm = this.FindForm();
+            if (dashboardForm != null)
+            {
+                MessageBox.Show(dashboardForm.GetType().Name);
+                dashboardForm.Controls.Remove(this);
+                this.Dispose();
+                foreach (Control control in dashboardForm.Controls)
+                {
+                    MessageBox.Show(control.GetType().Name);
+                    if (control is TopNavigation || control is Dashboard)
+                    {
+                        dashboardForm.Controls.Remove(control);
+                        control.Dispose();
+                    }
+                }
+                Menu menu = new Menu(parentPanel);
+            }
         }
 
         private Image ResizeImage(Image imgToResize, Size size)
         {
             return new Bitmap(imgToResize, size);
+        }
+
+        private void InitializeSpeechRecognition()
+        {
+            recognizer = new SpeechRecognitionEngine();
+            synthesizer = new SpeechSynthesizer();
+
+
+            var triggerCommands = new Choices();
+            triggerCommands.Add("Hey Jarvis");
+
+            var grammarTrigger = new Grammar(new GrammarBuilder(triggerCommands));
+            recognizer.LoadGrammar(grammarTrigger);
+
+            var commands = new Choices();
+            commands.Add("dashboard");
+            commands.Add("book");
+            commands.Add("library");
+            commands.Add("teacher");
+            commands.Add("student");
+            commands.Add("author");
+            commands.Add("sign out");
+            commands.Add("how are you today");
+
+            var grammarBuilder = new GrammarBuilder();
+            grammarBuilder.Append(commands);
+
+            var grammarCommands = new Grammar(grammarBuilder);
+            recognizer.LoadGrammar(grammarCommands);
+
+            recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+            recognizer.SetInputToDefaultAudioDevice();
+            recognizer.RecognizeAsync(RecognizeMode.Multiple);
+
+            isListeningForCommand = false;
+        }
+        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            if (!isListeningForCommand)
+            {
+                if (e.Result.Text == "Hey Jarvis")
+                {
+                    synthesizer.SpeakAsync("Yes sir.");
+                    isListeningForCommand = true;
+                }
+            }
+            else
+            {
+                switch (e.Result.Text)
+                {
+                    case "dashboard":
+                        ShowDashboard();
+                        break;
+                    case "book":
+                        ShowBooks();
+                        break;
+                    case "library":
+                        ShowLibrary();
+                        break;
+                    case "teacher":
+                        ShowTeacher();
+                        break;
+                    case "student":
+                        ShowStudents();
+                        break;
+                    case "author":
+                        ShowAuthors();
+                        break;
+                    case "sign out":
+                        ClickSignOut();
+                        break;
+                    case "how are you today":
+                        synthesizer.SpeakAsync("Thanks, I'm fine today. You?");
+                        break;
+
+                    default:
+                        synthesizer.SpeakAsync("I didn't understand that command.");
+                        break;
+                }
+
+                isListeningForCommand = false;
+            }
         }
     }
 }
