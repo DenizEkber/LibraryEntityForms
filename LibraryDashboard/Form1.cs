@@ -55,11 +55,11 @@ namespace LibraryDashboard
             //DataViewPanel dataViewPanel = new DataViewPanel(this);
         }
 
-        public void LoadDashboard(dynamic user)
+        public void LoadDashboard(dynamic data)
         {
             this.Controls.Clear();
-            TopNavigation topNavigation = new TopNavigation(this, user);
-            LeftNavigation leftNavigation = new LeftNavigation(this,user.Role);
+            TopNavigation topNavigation = new TopNavigation(this, data);
+            LeftNavigation leftNavigation = new LeftNavigation(this,data.Role);
         }
 
         /*private void InitializeSpeechRecognition()

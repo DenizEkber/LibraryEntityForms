@@ -22,16 +22,7 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\M
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Identity.Client.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
@@ -52,7 +43,6 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\S
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.IO.Pipelines.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.Memory.Data.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
@@ -129,3 +119,7 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\L
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\LibraryEntityForms.genruntimeconfig.cache
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\ref\LibraryEntityForms.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\obj\Debug\net8.0\LibraryEntityForms.sourcelink.json
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryEntityForms\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

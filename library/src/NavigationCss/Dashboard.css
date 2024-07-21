@@ -1,0 +1,50 @@
+.dashboard {
+  padding: 20px;
+}
+
+.summary-cards {
+  display: flex;
+  flex-wrap: nowrap; /* Allows cards to wrap to the next line */
+  gap: 20px; /* Adds spacing between cards */
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 calc(33.333% - 20px); /* Flexbox to make cards responsive */
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.charts-row {
+  display: flex;
+  flex-wrap: nowrap; /* Allows charts to wrap to the next line */
+  gap: 20px; /* Adds spacing between charts */
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 calc(50% - 20px); /* Flexbox to make charts responsive */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.totals {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.totals div {
+  font-weight: bold;
+}

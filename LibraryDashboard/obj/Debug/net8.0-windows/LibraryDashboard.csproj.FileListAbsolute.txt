@@ -47,15 +47,6 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-win
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
-C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.Identity.Client.NativeInterop.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.SqlServer.Server.dll
@@ -80,3 +71,6 @@ C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-win
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\System.Speech.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Speech.dll
 C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\obj\Debug\net8.0-windows\LibraryDashboard.sourcelink.json
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\LENOVO\Desktop\LibraryEntityForms\LibraryDashboard\bin\Debug\net8.0-windows\Newtonsoft.Json.Bson.dll

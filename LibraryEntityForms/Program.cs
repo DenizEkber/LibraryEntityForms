@@ -1,20 +1,20 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿
 using LibraryEntityForms.CodeFirst.Context;
-using LibraryEntityForms.CodeFirst.Entity.LibraryData;
-using LibraryEntityForms.CodeFirst.Entity.UserData; // Your entity models namespace
+using LibraryEntityForms.Server;
+using System.Net; 
 
 
 namespace LibraryEntityForms.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+       /* static void Main(string[] args)
         {
-            /*using (LibraryContext context = new LibraryContext())
+
+
+            
+
+            using (LibraryContext context = new LibraryContext())
             {
 
 
@@ -336,7 +336,7 @@ namespace LibraryEntityForms.ConsoleApp
                 context.SaveChanges();
 
 
-            }*/
+            }
             /*using (LibraryContext ctx = new LibraryContext())
             {
                 var authors = ctx.Authors.ToList();
@@ -344,11 +344,74 @@ namespace LibraryEntityForms.ConsoleApp
                 {
                     Console.WriteLine($"{auth.FirstName}");
                 }
-            }*/
-           /* using (LibraryContext ctx =new LibraryContext())
+            }
+            /* using (LibraryContext ctx =new LibraryContext())
+             {
+                 ctx.S_Cards.Add(new S_Cards { Id_Student = 10, Id_Book = 10, DataOut = DateTime.Now.AddDays(-20), DataIn = DateTime.Now.AddDays(7), Id_Lib = 1, TimeLimit = 7 });
+             }
+        }*/
+
+        public static void Main(string[] args)
+        {
+
+            using (LibraryContext context = new LibraryContext())
             {
-                ctx.S_Cards.Add(new S_Cards { Id_Student = 10, Id_Book = 10, DataOut = DateTime.Now.AddDays(-20), DataIn = DateTime.Now.AddDays(7), Id_Lib = 1, TimeLimit = 7 });
-            }*/
-        }
+            }
+                /*var listener = new HttpListener();
+                listener.Prefixes.Add("http://localhost:8002/");
+                listener.Start();
+
+                Console.WriteLine("C# HTTP server is running: http://localhost:8002");
+
+                while (true)
+                {
+                    var context = listener.GetContext();
+                    Task.Run(() => HandleRequestAsync(context));
+                }*/
+
+            }
+
+        /*private static async Task HandleRequestAsync(HttpListenerContext context)
+        {
+            var path = context.Request.Url.AbsolutePath;
+
+            context.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            context.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type");
+            context.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+
+            switch (path)
+            {
+                case "/dashboard":
+                    new DashboardHandler().Handle(context);
+                    break;*/
+                /*case "/login":
+                    new RegisterHandler().Handle(context);
+                    break;
+                case "/verify-email":
+                    new VerifyEmailHandler().Handle(context);
+                    break;
+                case "/logout":
+                    new LogoutHandler().Handle(context);
+                    break;
+                case "/profile":
+                    new ProfileHandler().Handle(context);
+                    break;
+                case "/playlist-create":
+                    new PlaylistCreateHandler().Handle(context);
+                    break;
+                case "/playlist-show":
+                    new PlaylistShowHandler().Handle(context);
+                    break;
+                case "/playlist-showContent":
+                    new PlaylistShowContent().Handle(context);
+                    break;*/
+                /*default:
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+            }
+
+            context.Response.Close();
+        }*/
+
     }
 }

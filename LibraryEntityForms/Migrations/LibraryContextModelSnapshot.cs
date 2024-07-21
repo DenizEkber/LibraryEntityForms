@@ -376,12 +376,17 @@ namespace LibraryEntityForms.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("PhotoData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id_User");
+                    b.HasIndex("Id_User")
+                        .IsUnique();
 
                     b.ToTable("UserDetail");
                 });
@@ -541,8 +546,8 @@ namespace LibraryEntityForms.Migrations
             modelBuilder.Entity("LibraryEntityForms.CodeFirst.Entity.UserData.UserDetail", b =>
                 {
                     b.HasOne("LibraryEntityForms.CodeFirst.Entity.UserData.Users", "Users")
-                        .WithMany("UserDetails")
-                        .HasForeignKey("Id_User")
+                        .WithOne("UserDetails")
+                        .HasForeignKey("LibraryEntityForms.CodeFirst.Entity.UserData.UserDetail", "Id_User")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -610,7 +615,8 @@ namespace LibraryEntityForms.Migrations
 
             modelBuilder.Entity("LibraryEntityForms.CodeFirst.Entity.UserData.Users", b =>
                 {
-                    b.Navigation("UserDetails");
+                    b.Navigation("UserDetails")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

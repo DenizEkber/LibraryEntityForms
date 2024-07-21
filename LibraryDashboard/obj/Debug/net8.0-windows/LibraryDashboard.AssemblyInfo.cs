@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibraryDashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9571b012e18f07984e82073b1c8857964508f4c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+795a3010897633a722f0c97258f0d59f529d44f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibraryDashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibraryDashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

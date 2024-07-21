@@ -262,26 +262,44 @@ namespace LibraryDashboard.Navigation
         }
         private void ClickSignOut()
         {
-
-
             Form dashboardForm = this.FindForm();
             if (dashboardForm != null)
             {
-                MessageBox.Show(dashboardForm.GetType().Name);
-                dashboardForm.Controls.Remove(this);
-                this.Dispose();
+                //MessageBox.Show(dashboardForm.GetType().Name);
+
+                // Mevcut kontrolü kaldır
+                /*dashboardForm.Controls.Remove(this);
+                this.Dispose();*/
+
+                var controlsToRemove = new List<Control>();
+                //MessageBox.Show(control.GetType().Name);
                 foreach (Control control in dashboardForm.Controls)
                 {
-                    MessageBox.Show(control.GetType().Name);
-                    if (control is TopNavigation || control is Dashboard)
+                    // Kontrolün adını kontrol et
+                    if (control is TopNavigation || control is Dashboard )
                     {
                         dashboardForm.Controls.Remove(control);
                         control.Dispose();
                     }
                 }
+                foreach (var control in controlsToRemove)
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+
+                dashboardForm.Controls.Remove(this);
+                this.Dispose();
+
                 Menu menu = new Menu(parentPanel);
             }
         }
+
+
+
+
+
 
         private Image ResizeImage(Image imgToResize, Size size)
         {
