@@ -18,7 +18,8 @@ namespace LibraryEntityForms.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,8 +71,8 @@ namespace LibraryEntityForms.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,7 +130,8 @@ namespace LibraryEntityForms.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Id_Dep = table.Column<int>(type: "int", nullable: false)
+                    Id_Dep = table.Column<int>(type: "int", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,7 +178,8 @@ namespace LibraryEntityForms.Migrations
                     Id_Author = table.Column<int>(type: "int", nullable: false),
                     Id_Press = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,6 +220,7 @@ namespace LibraryEntityForms.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Id_User = table.Column<int>(type: "int", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -240,7 +244,8 @@ namespace LibraryEntityForms.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Id_Group = table.Column<int>(type: "int", nullable: false),
-                    Term = table.Column<int>(type: "int", nullable: false)
+                    Term = table.Column<int>(type: "int", nullable: false),
+                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -393,7 +398,8 @@ namespace LibraryEntityForms.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserDetail_Id_User",
                 table: "UserDetail",
-                column: "Id_User");
+                column: "Id_User",
+                unique: true);
         }
 
         /// <inheritdoc />

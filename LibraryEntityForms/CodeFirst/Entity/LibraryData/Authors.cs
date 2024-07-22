@@ -13,7 +13,7 @@ namespace LibraryEntityForms.CodeFirst.Entity.LibraryData
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public byte[] PhotoData { get; set; }
         public virtual ICollection<Books> Books { get; set; }
     }
 }

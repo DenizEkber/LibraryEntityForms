@@ -1,0 +1,47 @@
+.student-container {
+    padding: 20px;
+    background-color: #FAFBFC;
+  }
+  
+  .student-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .student-card {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 720px;
+  }
+  
+  .student-image {
+    flex-shrink: 0;
+  }
+  
+  .student-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .student-info {
+    padding: 10px;
+    flex-grow: 1;
+  }
+  
+  .student-info strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .student-info p {
+    margin: 2px 0;
+    font-size: 14px;
+  }
+  

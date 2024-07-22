@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibraryEntityForms.CodeFirst.Context;
+﻿using LibraryEntityForms.CodeFirst.Context;
+using LibraryDashboard.Helpers;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace LibraryDashboard
 {
     internal class Books : Panel
     {
-        
+        private FlowLayoutPanel flowLayoutPanel;
+
         public Books(Form parentForm)
         {
             this.Size = new Size(1575, 1075);
             this.Location = new Point(345, 120);
             this.BackColor = ColorTranslator.FromHtml("#FAFBFC");
-            this.Visible = false; 
+            this.Visible = false;
 
             parentForm.Controls.Add(this);
             InitializeDashboard();
@@ -23,67 +28,23 @@ namespace LibraryDashboard
 
         private void InitializeDashboard()
         {
-            Panel tablePanel = CreateTablePanel(new Point(10, 10), new Size(1500, 800));
-            this.Controls.Add(tablePanel);
-            LoadDataToTable(tablePanel);
-        }
-        private Panel CreateTablePanel(Point location, Size size)
-        {
-            Panel panel = new Panel
+            flowLayoutPanel = new FlowLayoutPanel
             {
-                Location = location,
-                Size = size,
-                AutoScroll = true
+                Location = new Point(10, 10),
+                Size = new Size(1500, 800),
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = ColorTranslator.FromHtml("#FAFBFC")
             };
-
-            
-            DataGridView dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells, 
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                ReadOnly = true, 
-                AllowUserToAddRows = false, 
-                AllowUserToDeleteRows = false, 
-                AllowUserToResizeColumns = false, 
-                AllowUserToResizeRows = false, 
-                BackgroundColor = Color.White, 
-                GridColor = Color.LightGray, 
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.AliceBlue } 
-            };
-
-            
-            dataGridView.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12, FontStyle.Bold),
-                BackColor = Color.Navy,
-                ForeColor = Color.White,
-                Alignment = DataGridViewContentAlignment.MiddleCenter
-            };
-
-            
-            dataGridView.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12),
-                BackColor = Color.White,
-                ForeColor = Color.Black,
-                SelectionBackColor = Color.CornflowerBlue,
-                SelectionForeColor = Color.White
-            };
-
-            
-            panel.Controls.Add(dataGridView);
-
-            return panel;
+            this.Controls.Add(flowLayoutPanel);
+            LoadDataToTable();
         }
 
-
-
-        private async void LoadDataToTable(Panel panel)
+        private async void LoadDataToTable()
         {
             using (var ctx = new LibraryContext())
             {
-                
                 var data = await (from book in ctx.Books
                                   join author in ctx.Authors on book.Id_Author equals author.Id
                                   join theme in ctx.Themes on book.Id_Themes equals theme.Id
@@ -100,18 +61,62 @@ namespace LibraryDashboard
                                       AuthorLastName = author.LastName,
                                       ThemeName = theme.Name,
                                       CategoryName = category.Name,
-                                      PressName = press.Name
+                                      PressName = press.Name,
+                                      PhotoData = book.PhotoData // Assuming this is the Base64 string
                                   }).ToListAsync();
 
-                
-                DataGridView dataGridView = panel.Controls.OfType<DataGridView>().FirstOrDefault();
-                if (dataGridView != null)
-                {
-                    
-                    dataGridView.DataSource = data;
-                }
+                DisplayBooks(data);
             }
         }
 
+        private void DisplayBooks(IEnumerable<dynamic> books)
+        {
+            flowLayoutPanel.Controls.Clear(); // Clear previous data
+
+            foreach (var book in books)
+            {
+                Panel bookPanel = CreateBookPanel(book);
+                flowLayoutPanel.Controls.Add(bookPanel);
+            }
+        }
+
+        private Panel CreateBookPanel(dynamic book)
+        {
+            Panel panel = PanelHelper.CreatePanel(new Size(720, 300), new Padding(10), Color.LightCyan, new Padding(10));
+
+            // Book Image
+            PictureBox pictureBox = PanelHelper.CreatePictureBox(book.PhotoData, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg", new Size(100, 150), new Point(10, 10));
+            panel.Controls.Add(pictureBox);
+
+            // Book Name
+            Label titleLabel = PanelHelper.CreateLabel(book.BookName, new Font("Arial", 14, FontStyle.Bold), Color.DarkBlue, new Point(120, 10));
+            panel.Controls.Add(titleLabel);
+
+            // Author
+            Label authorLabel = PanelHelper.CreateLabel($"by {book.AuthorFirstName} {book.AuthorLastName}", new Font("Arial", 12, FontStyle.Italic), Color.DarkSlateGray, new Point(120, 35));
+            panel.Controls.Add(authorLabel);
+
+            // Description
+            Label descriptionLabel = PanelHelper.CreateLabel(book.BookComment, new Font("Arial", 11, FontStyle.Regular), Color.Black, new Point(120, 60));
+            panel.Controls.Add(descriptionLabel);
+
+            // Details
+            Label detailsLabel = PanelHelper.CreateLabel($"{book.BookPages} pages, Published in {book.BookYearPress}", new Font("Arial", 11, FontStyle.Regular), Color.Black, new Point(120, 85));
+            panel.Controls.Add(detailsLabel);
+
+            // Category
+            Label categoryLabel = PanelHelper.CreateLabel($"Category: {book.CategoryName}", new Font("Arial", 11, FontStyle.Regular), Color.MediumSeaGreen, new Point(120, 110));
+            panel.Controls.Add(categoryLabel);
+
+            // Theme
+            Label themeLabel = PanelHelper.CreateLabel($"Theme: {book.ThemeName}", new Font("Arial", 11, FontStyle.Regular), Color.OrangeRed, new Point(120, 135));
+            panel.Controls.Add(themeLabel);
+
+            // Press
+            Label pressLabel = PanelHelper.CreateLabel($"Press: {book.PressName}", new Font("Arial", 11, FontStyle.Regular), Color.Purple, new Point(120, 160));
+            panel.Controls.Add(pressLabel);
+
+            return panel;
+        }
     }
 }

@@ -1,0 +1,56 @@
+/* Books.css */
+.books-container {
+  padding: 20px;
+}
+
+.books-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.books-list li {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.book-image {
+  margin-right: 20px;
+}
+
+.book-thumbnail {
+  max-width: 150px; /* Görselin genişliğini 150px olarak sınırlandırır */
+  max-height: 200px; /* Görselin yüksekliğini 200px olarak sınırlandırır */
+  object-fit: cover; /* Görselin kesilmesini önler ve kapsayıcıya uygun şekilde ayarlar */
+  border-radius: 5px;
+}
+
+.book-info {
+  flex: 1;
+}
+
+.book-info strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.book-info p {
+  margin: 5px 0;
+}
+
+.book-details {
+  margin: 10px 0;
+}
+
+.book-details span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.book-quantity {
+  font-weight: bold;
+}

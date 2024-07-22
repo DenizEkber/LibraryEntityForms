@@ -1,106 +1,86 @@
-﻿using LibraryDashboard.Design;
-using LibraryEntityForms.CodeFirst.Context;
+﻿using LibraryEntityForms.CodeFirst.Context;
+using LibraryDashboard.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LibraryDashboard
 {
-    internal class Author :Panel
+    internal class Author : Panel
     {
-        PanelCreated pc;
+        private FlowLayoutPanel flowLayoutPanel;
+
         public Author(Form parentForm)
         {
             this.Size = new Size(1575, 1075);
             this.Location = new Point(345, 120);
             this.BackColor = ColorTranslator.FromHtml("#FAFBFC");
-            this.Visible = false; 
+            this.Visible = false;
 
             parentForm.Controls.Add(this);
             InitializeDashboard();
         }
+
         private void InitializeDashboard()
         {
-            Panel tablePanel = CreateTablePanel(new Point(10, 10), new Size(1500, 800));
-            this.Controls.Add(tablePanel);
-            LoadDataToTable(tablePanel);
-        }
-        private Panel CreateTablePanel(Point location, Size size)
-        {
-            Panel panel = new Panel
+            flowLayoutPanel = new FlowLayoutPanel
             {
-                Location = location,
-                Size = size,
-                AutoScroll = true 
+                Location = new Point(10, 10),
+                Size = new Size(1500, 800),
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = ColorTranslator.FromHtml("#FAFBFC")
             };
-
-            
-            DataGridView dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells, 
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                ReadOnly = true, 
-                AllowUserToAddRows = false, 
-                AllowUserToDeleteRows = false, 
-                AllowUserToResizeColumns = false, 
-                AllowUserToResizeRows = false, 
-                BackgroundColor = Color.White, 
-                GridColor = Color.LightGray, 
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.AliceBlue } 
-            };
-
-            
-            dataGridView.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12, FontStyle.Bold),
-                BackColor = Color.Navy,
-                ForeColor = Color.White,
-                Alignment = DataGridViewContentAlignment.MiddleCenter
-            };
-
-            
-            dataGridView.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12),
-                BackColor = Color.White,
-                ForeColor = Color.Black,
-                SelectionBackColor = Color.CornflowerBlue,
-                SelectionForeColor = Color.White
-            };
-
-            
-            panel.Controls.Add(dataGridView);
-
-            return panel;
+            this.Controls.Add(flowLayoutPanel);
+            LoadDataToTable();
         }
 
-
-
-        private async void LoadDataToTable(Panel panel)
+        private async void LoadDataToTable()
         {
             using (var ctx = new LibraryContext())
             {
-                
-                var data = await (from Author in ctx.Authors
+                var data = await (from author in ctx.Authors
                                   select new
                                   {
-                                      FirstName = Author.FirstName,
-                                      LastName = Author.LastName,
+                                      FirstName = author.FirstName,
+                                      LastName = author.LastName,
+                                      PhotoData = author.PhotoData // Byte[] fotoğraf verisi
                                   }).ToListAsync();
 
-                
-                DataGridView dataGridView = panel.Controls.OfType<DataGridView>().FirstOrDefault();
-                if (dataGridView != null)
-                {
-                    
-                    dataGridView.DataSource = data;
-                }
+                DisplayAuthors(data);
             }
+        }
+
+        private void DisplayAuthors(IEnumerable<dynamic> authors)
+        {
+            flowLayoutPanel.Controls.Clear(); // Clear previous data
+
+            foreach (var author in authors)
+            {
+                Panel authorPanel = CreateAuthorPanel(author.FirstName, author.LastName, author.PhotoData);
+                flowLayoutPanel.Controls.Add(authorPanel);
+            }
+        }
+
+        private Panel CreateAuthorPanel(string firstName, string lastName, byte[] photoData)
+        {
+            Panel panel = PanelHelper.CreatePanel(new Size(720, 120), new Padding(10), Color.LightYellow, new Padding(10));
+
+            // Author Picture
+            PictureBox pictureBox = PanelHelper.CreatePictureBox(photoData, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg", new Size(100, 100), new Point(10, 10));
+            panel.Controls.Add(pictureBox);
+
+            // Full Name
+            Label nameLabel = PanelHelper.CreateLabel($"{firstName} {lastName}", new Font("Arial", 14, FontStyle.Bold), Color.DarkGreen, new Point(120, 10));
+            panel.Controls.Add(nameLabel);
+
+            return panel;
         }
     }
 }

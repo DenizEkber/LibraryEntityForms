@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 using LibraryDashboard.Design;
+using LibraryDashboard.Helpers;
 using LibraryEntityForms.CodeFirst.Context;
 using LibraryEntityForms.CodeFirst.Entity.LibraryData;
 using LiveCharts;
@@ -272,7 +273,7 @@ namespace LibraryDashboard
                 Panel booksByCategoryPanel = pc.CreatePanel(new Point(20, 540), new Size(645, 319), Color.White);
                 booksByCategoryPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 645, 319, 20, 20));
                 Label booksByCategoryLabel = pc.CreateLabel("Books By Category", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                LiveCharts.WinForms.CartesianChart booksByCategoryChart = CreateBarChart(new Point(0, 100), new Size(589, 200), ReadBookCategory());
+                LiveCharts.WinForms.CartesianChart booksByCategoryChart = ChartHelper.CreateBarChart(new Point(0, 100), new Size(589, 200), ReadBookCategory(), "Books By Category");
                 booksByCategoryPanel.Controls.Add(booksByCategoryLabel);
                 booksByCategoryPanel.Controls.Add(booksByCategoryChart);
                 this.Controls.Add(booksByCategoryPanel);
@@ -291,7 +292,7 @@ namespace LibraryDashboard
                 Panel teachersVsStudentsPanel = pc.CreatePanel(new Point(1140, 540), new Size(371, 319), Color.White);
                 teachersVsStudentsPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 371, 319, 20, 20));
                 Label teachersVsStudentsLabel = pc.CreateLabel("Teachers vs Students", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                LiveCharts.WinForms.CartesianChart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 50), new Size(334, 157),data());
+                LiveCharts.WinForms.CartesianChart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 60), new Size(334, 157),data());
                 var query = data().First();
                 Label totalLabel = new Label
                 {
@@ -309,73 +310,7 @@ namespace LibraryDashboard
             }
         }
 
-        /*private Chart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
-        {
-            Chart chart = new Chart
-            {
-                Location = location,
-                Size = size
-            };
-
-            ChartArea chartArea = new ChartArea
-            {
-                AxisX =
-                {
-                    MajorGrid = { Enabled = false },
-                    MinorGrid = { Enabled = false },
-                    MajorTickMark = { Enabled = false },
-                    MinorTickMark = { Enabled = false },
-                    
-                    LineWidth = 0, // Hide X axis line
-                    LabelStyle = { Enabled = true }
-                },
-                AxisY =
-                {
-                    MajorGrid = { Enabled = false }, // Disable major grid lines
-                    MinorGrid = { Enabled = false }, // Disable minor grid lines
-                    LineWidth = 0, // Hide Y axis line
-                    
-                    LabelStyle = { Enabled = false }
-                },
-                BorderWidth = 0, // Remove chart area border
-                BackColor = Color.Transparent // Make chart area background transparent
-            };
-
-            chart.ChartAreas.Add(chartArea);
-
-            Series teachersSeries = new Series
-            {
-                ChartType = SeriesChartType.Column,
-                
-                Name = "Teachers",
-                Color = ColorTranslator.FromHtml("#82CD47"),
-                CustomProperties = "PointWidth=0.4"
-                
-            };
-
-
-            Series studentsSeries = new Series
-            {
-                ChartType = SeriesChartType.Column,
-                Name = "Students",
-                Color = ColorTranslator.FromHtml("#FFD93D"),
-                CustomProperties = "PointWidth=0.4"
-            };
-
-            foreach (var item in data)
-            {
-                teachersSeries.Points.AddXY(item.Month.ToString("MMM"), item.TeachersCount);
-                studentsSeries.Points.AddXY(item.Month.ToString("MMM"), item.StudentsCount);
-            }
-
-            chart.Series.Add(teachersSeries);
-            chart.Series.Add(studentsSeries);
-
-
-
-
-            return chart;
-        }*/
+        
 
         private LiveCharts.WinForms.CartesianChart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
         {
@@ -419,48 +354,7 @@ namespace LibraryDashboard
 
 
 
-        /*private Chart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
-        {
-            Chart chart = new Chart
-            {
-                Location = location,
-                Size = size
-            };
-
-            // Chart alanı oluşturun ve ayarlayın
-            ChartArea chartArea = new ChartArea();
-            chart.ChartAreas.Add(chartArea);
-
-            // Series oluşturun (Donut chart için Pie türü kullanılır)
-            Series series = new Series
-            {
-                ChartType = SeriesChartType.Doughnut,
-                Name = "BooksByThemes"
-            };
-
-
-
-            foreach (var theme in ReadBookThemes)
-            {
-                // Eğer SumThemes sıfırdan büyükse, yüzde hesaplamasını yapın
-                double percentage = theme.SumThemes > 0 ? (double)theme.UsageCount / theme.SumThemes * 100 : 0;
-                
-                series.Points.Add(new DataPoint(0, percentage)
-                {
-                    Label = $"{theme.BookThemes} ({percentage} %)",
-                    LegendText = $"{theme.BookThemes}"
-                });
-            }
-
-            
-
-
-            // Series'ı chart kontrolüne ekle
-            chart.Series.Add(series);
-
-            // Chart kontrolünü geri döndür
-            return chart;
-        }*/
+        
 
 
         private LiveCharts.WinForms.PieChart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
@@ -493,58 +387,7 @@ namespace LibraryDashboard
         }
 
 
-        /*private Chart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)
-        {
-            Chart chart = new Chart
-            {
-                Location = location,
-                Size = size
-            };
-
-            ChartArea chartArea = new ChartArea();
-
-            chartArea.AxisX.MajorGrid.Enabled = false;
-            chartArea.AxisX.MinorGrid.Enabled = false;
-            chartArea.AxisX.MajorTickMark.Enabled = false;
-            chartArea.AxisX.MinorTickMark.Enabled = false;
-
-            chartArea.AxisY.MajorGrid.Enabled = true; // Y ekseni büyük çizgileri etkinleştir
-            chartArea.AxisY.MajorGrid.LineColor = ColorTranslator.FromHtml("#EFF1F3"); // Y ekseni büyük çizgileri rengi
-            chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid; // Y ekseni büyük çizgileri stil
-            chartArea.AxisY.MinorGrid.Enabled = false; // Y ekseni küçük çizgileri kaldır
-
-            chartArea.AxisY.LineColor = Color.DarkGray;
-            chartArea.AxisY.LineWidth = 1;
-
-            chart.ChartAreas.Add(chartArea);
-
-            Series series = new Series
-            {
-                ChartType = SeriesChartType.Column,
-                Name = "BooksByCategory",
-                BorderColor = ColorTranslator.FromHtml("#0095FF"),
-                CustomProperties = "PointWidth=0.2"
-            };
-
-            foreach (var category in ReadBookCategory)
-            {
-                // Eğer SumThemes sıfırdan büyükse, yüzde hesaplamasını yapın
-
-
-                series.Points.AddXY($"{category.BookCategory}", category.UsageCount);
-            }
-            
-            
-
-            // Yatay ve dikey eksenlerin çizgi rengini ve kalınlığını ayarla
-            
-            
-
-            //chartArea.AxisX.LineColor = Color.Blue;
-            chart.Series.Add(series);
-
-            return chart;
-        }*/
+        
 
 
         private LiveCharts.WinForms.CartesianChart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)

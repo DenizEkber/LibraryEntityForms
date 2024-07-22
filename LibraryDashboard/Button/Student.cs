@@ -1,90 +1,49 @@
-﻿using LibraryDashboard.Design;
-using LibraryEntityForms.CodeFirst.Context;
+﻿using LibraryEntityForms.CodeFirst.Context;
+using LibraryDashboard.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LibraryDashboard
 {
     internal class Student : Panel
     {
-        PanelCreated pc;
+        private FlowLayoutPanel flowLayoutPanel;
+
         public Student(Form parentForm)
         {
             this.Size = new Size(1575, 1075);
             this.Location = new Point(345, 120);
             this.BackColor = ColorTranslator.FromHtml("#FAFBFC");
-            this.Visible = false; 
+            this.Visible = false;
 
             parentForm.Controls.Add(this);
             InitializeDashboard();
         }
+
         private void InitializeDashboard()
         {
-            Panel tablePanel = CreateTablePanel(new Point(10, 10), new Size(1500, 800));
-            this.Controls.Add(tablePanel);
-            LoadDataToTable(tablePanel);
-        }
-        private Panel CreateTablePanel(Point location, Size size)
-        {
-            Panel panel = new Panel
+            flowLayoutPanel = new FlowLayoutPanel
             {
-                Location = location,
-                Size = size,
-                AutoScroll = true 
+                Location = new Point(10, 10),
+                Size = new Size(1500, 800),
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = ColorTranslator.FromHtml("#FAFBFC")
             };
-
-            
-            DataGridView dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells, 
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                ReadOnly = true,
-                AllowUserToAddRows = false, 
-                AllowUserToDeleteRows = false, 
-                AllowUserToResizeColumns = false, 
-                AllowUserToResizeRows = false, 
-                BackgroundColor = Color.White, 
-                GridColor = Color.LightGray, 
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.AliceBlue } 
-            };
-
-            
-            dataGridView.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12, FontStyle.Bold),
-                BackColor = Color.Navy,
-                ForeColor = Color.White,
-                Alignment = DataGridViewContentAlignment.MiddleCenter
-            };
-
-            
-            dataGridView.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12),
-                BackColor = Color.White,
-                ForeColor = Color.Black,
-                SelectionBackColor = Color.CornflowerBlue,
-                SelectionForeColor = Color.White
-            };
-
-            
-            panel.Controls.Add(dataGridView);
-
-            return panel;
+            this.Controls.Add(flowLayoutPanel);
+            LoadDataToTable();
         }
 
-
-
-        private async void LoadDataToTable(Panel panel)
+        private async void LoadDataToTable()
         {
             using (var ctx = new LibraryContext())
             {
-                // Veritabanından veriyi çek
                 var data = await (from student in ctx.Students
                                   join groups in ctx.Groups on student.Id_Group equals groups.Id
                                   join faculty in ctx.Faculties on groups.Id_Faculty equals faculty.Id
@@ -95,16 +54,49 @@ namespace LibraryDashboard
                                       Term = student.Term,
                                       Group = groups.Name,
                                       Faculty = faculty.Name,
+                                      PhotoData = student.PhotoData,
                                   }).ToListAsync();
 
-                // Paneldeki DataGridView kontrolünü bul
-                DataGridView dataGridView = panel.Controls.OfType<DataGridView>().FirstOrDefault();
-                if (dataGridView != null)
-                {
-                    // Veriyi DataGridView'e bağla
-                    dataGridView.DataSource = data;
-                }
+                DisplayStudents(data);
             }
+        }
+
+        private void DisplayStudents(IEnumerable<dynamic> students)
+        {
+            flowLayoutPanel.Controls.Clear(); // Clear previous data
+
+            foreach (var student in students)
+            {
+                Panel studentPanel = CreateStudentPanel(student);
+                flowLayoutPanel.Controls.Add(studentPanel);
+            }
+        }
+
+        private Panel CreateStudentPanel(dynamic student)
+        {
+            Panel panel = PanelHelper.CreatePanel(new Size(720, 150), new Padding(10), Color.LightPink, new Padding(10));
+
+            // Student Image
+            PictureBox pictureBox = PanelHelper.CreatePictureBox(student.PhotoData, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg", new Size(100, 100), new Point(10, 10));
+            panel.Controls.Add(pictureBox);
+
+            // Full Name
+            Label nameLabel = PanelHelper.CreateLabel($"{student.FirstName} {student.LastName}", new Font("Arial", 14, FontStyle.Bold), Color.DarkRed, new Point(120, 10));
+            panel.Controls.Add(nameLabel);
+
+            // Faculty
+            Label facultyLabel = PanelHelper.CreateLabel($"Faculty: {student.Faculty} ", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 40));
+            panel.Controls.Add(facultyLabel);
+
+            // Group
+            Label phoneLabel = PanelHelper.CreateLabel($"Group: {student.Group}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 70));
+            panel.Controls.Add(phoneLabel);
+
+            //Term
+            Label termLabel = PanelHelper.CreateLabel($"Term: {student.Term}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 110));
+            panel.Controls.Add(termLabel);
+
+            return panel;
         }
     }
 }

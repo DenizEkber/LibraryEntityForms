@@ -194,8 +194,39 @@ namespace LibraryDashboard.Navigation
 
             if(button.Text == "Sign Out")
             {
-                ClickSignOut();
-                
+                Form dashboardForm = this.FindForm();
+                if (dashboardForm != null)
+                {
+                    //MessageBox.Show(dashboardForm.GetType().Name);
+
+                    /*dashboardForm.Controls.Remove(this);
+                    this.Dispose();*/
+
+                    var controlsToRemove = new List<Control>();
+                    //MessageBox.Show(control.GetType().Name);
+                    foreach (Control control in dashboardForm.Controls)
+                    {
+                        
+                        if (control is TopNavigation || control is Dashboard || control is UserData )
+                        {
+                            dashboardForm.Controls.Remove(control);
+                            control.Dispose();
+                        }
+                    }
+                    
+                    foreach (var control in controlsToRemove)
+                    {
+                        dashboardForm.Controls.Remove(control);
+                        control.Dispose();
+                    }
+
+
+                    dashboardForm.Controls.Remove(this);
+                    this.Dispose();
+
+                    Menu menu = new Menu(parentPanel);
+                }
+
             }
 
         }
@@ -267,7 +298,6 @@ namespace LibraryDashboard.Navigation
             {
                 //MessageBox.Show(dashboardForm.GetType().Name);
 
-                // Mevcut kontrolü kaldır
                 /*dashboardForm.Controls.Remove(this);
                 this.Dispose();*/
 
@@ -275,12 +305,25 @@ namespace LibraryDashboard.Navigation
                 //MessageBox.Show(control.GetType().Name);
                 foreach (Control control in dashboardForm.Controls)
                 {
-                    // Kontrolün adını kontrol et
-                    if (control is TopNavigation || control is Dashboard )
+                    switch (control)
+                    {
+                        case UserData:
+                            
+                            
+                        case Dashboard:
+                            
+                            
+                        case TopNavigation:
+                            dashboardForm.Controls.Remove(control);
+                            control.Dispose();
+                            break;
+                            
+                    }
+                    /*if (control is TopNavigation || control is Dashboard || control is UserData )
                     {
                         dashboardForm.Controls.Remove(control);
                         control.Dispose();
-                    }
+                    }*/
                 }
                 foreach (var control in controlsToRemove)
                 {

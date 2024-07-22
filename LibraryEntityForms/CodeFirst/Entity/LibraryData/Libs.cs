@@ -12,8 +12,8 @@ namespace LibraryEntityForms.CodeFirst.Entity.LibraryData
     {
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
+        public byte[] PhotoData { get; set; }
 
         public virtual ICollection<S_Cards> S_Cards { get; set; }
         public virtual ICollection<T_Cards> T_Cards { get; set; }

@@ -1,107 +1,99 @@
-﻿using LibraryDashboard.Design;
-using LibraryEntityForms.CodeFirst.Context;
+﻿using LibraryEntityForms.CodeFirst.Context;
+using LibraryDashboard.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LibraryDashboard
 {
-    internal class Library :Panel
+    internal class Library : Panel
     {
-        PanelCreated pc;
+        private FlowLayoutPanel flowLayoutPanel;
+
         public Library(Form parentForm)
         {
             this.Size = new Size(1575, 1075);
             this.Location = new Point(345, 120);
             this.BackColor = ColorTranslator.FromHtml("#FAFBFC");
-            this.Visible = false; 
+            this.Visible = false;
 
             parentForm.Controls.Add(this);
             InitializeDashboard();
         }
+
         private void InitializeDashboard()
         {
-            Panel tablePanel = CreateTablePanel(new Point(10, 10), new Size(1500, 800));
-            this.Controls.Add(tablePanel);
-            LoadDataToTable(tablePanel);
-        }
-        private Panel CreateTablePanel(Point location, Size size)
-        {
-            Panel panel = new Panel
+            flowLayoutPanel = new FlowLayoutPanel
             {
-                Location = location,
-                Size = size,
-                AutoScroll = true 
+                Location = new Point(10, 10),
+                Size = new Size(1500, 800),
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = ColorTranslator.FromHtml("#FAFBFC")
             };
-
-            
-            DataGridView dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells, 
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                ReadOnly = true, 
-                AllowUserToAddRows = false,
-                AllowUserToDeleteRows = false, 
-                AllowUserToResizeColumns = false,
-                AllowUserToResizeRows = false, 
-                BackgroundColor = Color.White,
-                GridColor = Color.LightGray, 
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.AliceBlue }
-            };
-
-            
-            dataGridView.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12, FontStyle.Bold),
-                BackColor = Color.Navy,
-                ForeColor = Color.White,
-                Alignment = DataGridViewContentAlignment.MiddleCenter
-            };
-
-           
-            dataGridView.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Arial", 12),
-                BackColor = Color.White,
-                ForeColor = Color.Black,
-                SelectionBackColor = Color.CornflowerBlue,
-                SelectionForeColor = Color.White
-            };
-
-            
-            panel.Controls.Add(dataGridView);
-
-            return panel;
+            this.Controls.Add(flowLayoutPanel);
+            LoadDataToTable();
         }
 
-
-
-        private async void LoadDataToTable(Panel panel)
+        private async void LoadDataToTable()
         {
             using (var ctx = new LibraryContext())
             {
-                
-                var data = await (from Library in ctx.Libraries
+                var data = await (from library in ctx.Libraries
                                   select new
                                   {
-                                      FirstName = Library.FirstName,
-                                      LastName = Library.LastName,
+                                      Name = library.Name,
+                                      /*Address = library.Address,
+                                      PhoneNumber = library.PhoneNumber,
+                                      Email = library.Email,*/
+                                      PhotoData = library.PhotoData
                                   }).ToListAsync();
 
-                
-                DataGridView dataGridView = panel.Controls.OfType<DataGridView>().FirstOrDefault();
-                if (dataGridView != null)
-                {
-                    
-                    dataGridView.DataSource = data;
-                }
+                DisplayLibraries(data);
             }
         }
 
+        private void DisplayLibraries(IEnumerable<dynamic> libraries)
+        {
+            flowLayoutPanel.Controls.Clear(); // Clear previous data
+
+            foreach (var library in libraries)
+            {
+                Panel libraryPanel = CreateLibraryPanel(library);
+                flowLayoutPanel.Controls.Add(libraryPanel);
+            }
+        }
+
+        private Panel CreateLibraryPanel(dynamic library)
+        {
+            Panel panel = PanelHelper.CreatePanel(new Size(720, 200), new Padding(10), Color.LightGray, new Padding(10));
+
+            // Library Image
+            PictureBox pictureBox = PanelHelper.CreatePictureBox(library.PhotoData, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\libraryImage.jpg", new Size(100, 100), new Point(10, 10));
+            panel.Controls.Add(pictureBox);
+
+            // Library Name
+            Label nameLabel = PanelHelper.CreateLabel(library.Name, new Font("Arial", 14, FontStyle.Bold), Color.DarkBlue, new Point(120, 10));
+            panel.Controls.Add(nameLabel);
+
+            // Address
+            /*Label addressLabel = PanelHelper.CreateLabel(library.Address, new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 40));
+            panel.Controls.Add(addressLabel);
+
+            // Phone Number
+            Label phoneLabel = PanelHelper.CreateLabel($"Phone: {library.PhoneNumber}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 70));
+            panel.Controls.Add(phoneLabel);
+
+            // Email
+            Label emailLabel = PanelHelper.CreateLabel($"Email: {library.Email}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 100));
+            panel.Controls.Add(emailLabel);*/
+
+            return panel;
+        }
     }
 }
-

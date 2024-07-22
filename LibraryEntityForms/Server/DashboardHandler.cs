@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace LibraryEntityForms.Server
 {
-    [ApiController]
-    [Route("api/[controller]")]
     internal class DashboardHandler
     {
         private LibraryContext ctx;

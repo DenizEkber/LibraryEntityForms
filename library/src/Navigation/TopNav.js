@@ -1,17 +1,12 @@
 import React from 'react';
-import '../NavigationCss/TopNav.css';
+import UserButton from './UserButton';
 
-const TopNav = () => {
+const TopNav = ({ user }) => {
+  console.log(user)
   return (
     <div className="topnav">
-      <h1>EagleVision</h1>
-      <div className="user-info">
-        <img src="user-icon.png" alt="User Icon" className="user-icon" />
-        <div className="user-details">
-          <span>User</span>
-          <span className="user-role">Admin</span>
-        </div>
-      </div>
+      <h1>Library Management System</h1>
+      <UserButton user={user} />
     </div>
   );
 };

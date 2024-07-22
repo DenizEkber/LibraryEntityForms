@@ -21,6 +21,7 @@ namespace LibraryEntityForms.CodeFirst.Entity.LibraryData
         public int Id_Press { get; set; }
         public string Comment { get; set; }
         public int Quantity { get; set; }
+        public byte[] PhotoData { get; set; }
 
         public Authors Authors { get; set; }
         public Themes Themes { get; set; }

@@ -1,0 +1,42 @@
+.author-container {
+    padding: 20px;
+    background-color: #FAFBFC;
+  }
+  
+  .author-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .author-card {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 720px;
+  }
+  
+  .author-image {
+    flex-shrink: 0;
+  }
+  
+  .author-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .author-info {
+    padding: 10px;
+    flex-grow: 1;
+  }
+  
+  .author-info strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
