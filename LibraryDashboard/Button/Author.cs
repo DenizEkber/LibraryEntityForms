@@ -28,7 +28,7 @@ namespace LibraryDashboard
 
         private void InitializeDashboard()
         {
-            flowLayoutPanel = new FlowLayoutPanel
+             flowLayoutPanel = new FlowLayoutPanel
             {
                 Location = new Point(10, 10),
                 Size = new Size(1500, 800),
@@ -50,7 +50,7 @@ namespace LibraryDashboard
                                   {
                                       FirstName = author.FirstName,
                                       LastName = author.LastName,
-                                      PhotoData = author.PhotoData // Byte[] fotoğraf verisi
+                                      PhotoData = author.PhotoData 
                                   }).ToListAsync();
 
                 DisplayAuthors(data);
@@ -59,7 +59,7 @@ namespace LibraryDashboard
 
         private void DisplayAuthors(IEnumerable<dynamic> authors)
         {
-            flowLayoutPanel.Controls.Clear(); // Clear previous data
+            flowLayoutPanel.Controls.Clear(); 
 
             foreach (var author in authors)
             {

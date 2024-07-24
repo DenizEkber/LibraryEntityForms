@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,47 +16,74 @@ namespace LibraryEntityForms.Server
         {
             if (context.Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
             {
-                using (var reader = new StreamReader(context.Request.InputStream, context.Request.ContentEncoding))
+                var objectMapper = new JsonSerializer();
+                var requestData = default(LoginRequest);
+                using (var reader = new StreamReader(context.Request.InputStream))
                 {
                     var body = await reader.ReadToEndAsync();
                     var data = JsonConvert.DeserializeObject<LoginRequest>(body);
                     var userData = GetUserData(data.Email, data.Password);
 
-                    var response = new
+                    var responseJson = new
                     {
                         success = userData != null,
                         data = userData // Kullanıcı verilerini döndür
                     };
 
-                    context.Response.StatusCode = userData != null ? (int)HttpStatusCode.OK : (int)HttpStatusCode.Unauthorized;
-                    await SendResponseAsync(context, response);
+                    var response = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(responseJson));
+                    context.Response.ContentType = "application/json";
+                    context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    context.Response.OutputStream.Write(response, 0, response.Length);
                 }
             }
             else
             {
                 context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
-                await SendResponseAsync(context, new { success = false, message = "Method Not Allowed" });
             }
         }
 
-        private dynamic GetUserData(string email, string password)
+        private dynamic GetUserData(string userEmail, string password)
         {
             using (var ctx = new LibraryContext())
             {
                 var user = (from u in ctx.Users
                             join ud in ctx.UserDetail on u.Id equals ud.Id_User
-                            where ud.Email == email && u.Password == password
+                            where ud.Email == userEmail
                             select new
                             {
-                                Id = u.Id,
-                                UserName = u.Name,
-                                Role = u.Role.ToString(),
-                                Email = ud.Email,
-                                FirstName = ud.FirstName,
-                                LastName = ud.LastName
+                                u.Id,
+                                u.Name,
+                                u.Password,
+                                u.PasswordSalt,
+                                u.Role,
+                                ud.Email,
+                                ud.FirstName,
+                                ud.LastName
                             }).FirstOrDefault();
 
-                return user;
+                if (user != null && VerifyPassword(password, user.Password, user.PasswordSalt))
+                {
+                    return new
+                    {
+                        user.Id,
+                        UserName = user.Name,
+                        Role = user.Role,
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName
+                    };
+                }
+
+                return null;
+            }
+        }
+
+        private bool VerifyPassword(string enteredPassword, string storedHash, string storedSalt)
+        {
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(enteredPassword, Convert.FromBase64String(storedSalt), 10000))
+            {
+                string hash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(20));
+                return hash == storedHash;
             }
         }
 

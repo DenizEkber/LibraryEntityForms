@@ -25,8 +25,8 @@ namespace LibraryDashboard
             this.Size = new Size(1575, 1075);
             this.Location = new Point(345, 120);
             this.BackColor = ColorTranslator.FromHtml("#FAFBFC");
-            this.Visible = false; 
-            
+            this.Visible = false;
+
             parentForm.Controls.Add(this);
             InitializeDashboard();
         }
@@ -41,7 +41,7 @@ namespace LibraryDashboard
                     select new
                     {
                         BookName = b.Name,
-                        UsageCount = 1 // Her kayıt bir kullanım olarak sayılır
+                        UsageCount = 1 // ++
                     })
                     .Concat(
                     from tc in ctx.T_Cards
@@ -49,7 +49,7 @@ namespace LibraryDashboard
                     select new
                     {
                         BookName = b.Name,
-                        UsageCount = 1 // Her kayıt bir kullanım olarak sayılır
+                        UsageCount = 1 // ++
                     })
                     .GroupBy(x => x.BookName)
                     .Select(g => new
@@ -58,7 +58,7 @@ namespace LibraryDashboard
                         UsageCount = g.Sum(x => x.UsageCount)
                     })
                     .OrderByDescending(x => x.UsageCount)
-                    .Take(4) // En çok okunan ilk 4 kitabı al
+                    .Take(4) // tOP 4
                     .ToList();
 
                 return query.Select(x => (x.FamousBook, x.UsageCount));
@@ -102,7 +102,7 @@ namespace LibraryDashboard
         }
         private IEnumerable<(string BookCatgeory, int UsageCount)> ReadBookCategory()
         {
-            using (LibraryContext ctx =new LibraryContext())
+            using (LibraryContext ctx = new LibraryContext())
             {
                 var query = (
                         from sc in ctx.S_Cards
@@ -132,25 +132,25 @@ namespace LibraryDashboard
                         .ToList();
 
 
-                
+
 
                 return query.Select(x => (x.BookCategory, x.UsageCount));
             }
         }
         private IEnumerable<(DateTime Date, int StudentOverdue, int TeacherOverdue)> OverDue()
         {
-            DateTime currentDate = DateTime.Now.Date; // Şu anki tarihi zaman kısmı olmadan al
+            DateTime currentDate = DateTime.Now.Date; 
 
             using (LibraryContext ctx = new LibraryContext())
             {
                 var studentOverdues = ctx.S_Cards
-                    .AsEnumerable() // Veriyi belleğe al
+                    .AsEnumerable() 
                     .Where(s => (currentDate - s.DataOut.Date).TotalDays > s.TimeLimit)
                     .GroupBy(s => s.DataOut.Date)
                     .Select(g => new { Date = g.Key, Count = g.Count() }).ToList();
 
                 var teacherOverdues = ctx.T_Cards
-                    .AsEnumerable() // Veriyi belleğe al
+                    .AsEnumerable() 
                     .Where(t => (currentDate - t.DataOut.Date).TotalDays > t.TimeLimit)
                     .GroupBy(t => t.DataOut.Date)
                     .Select(g => new { Date = g.Key, Count = g.Count() }).ToList();
@@ -169,9 +169,9 @@ namespace LibraryDashboard
             }
         }
 
-        IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data ()
+        IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data()
         {
-            using (LibraryContext ctx =new LibraryContext())
+            using (LibraryContext ctx = new LibraryContext())
             {
                 var studentData = ctx.S_Cards
                 .GroupBy(sc => new { sc.DataOut.Year, sc.DataOut.Month })
@@ -192,7 +192,7 @@ namespace LibraryDashboard
                     })
                     .ToList();
 
-                // Combine data
+                // Combine 
                 var combinedData = (from sd in studentData
                                     join td in teacherData
                                     on sd.Month equals td.Month into g
@@ -207,29 +207,29 @@ namespace LibraryDashboard
                 int totalStudents = studentData.Sum(sd => sd.Count);
                 int totalTeachers = teacherData.Sum(td => td.Count);
 
-                return combinedData.Select(x=>(x.Month, x.StudentCount, x.TeacherCount, totalStudents, totalTeachers));
+                return combinedData.Select(x => (x.Month, x.StudentCount, x.TeacherCount, totalStudents, totalTeachers));
             }
         }
-        private void InitializeDashboard()
+        private async void InitializeDashboard()
         {
             pc = new PanelCreated();
             using (ctx = new LibraryContext())
             {
-                
+
                 var mostReadBooks = MostReadBook();
 
                 Panel totalBooksPanel = pc.CreatePanel(new Point(20, 20), new Size(877, 366), Color.White);
-                
+
                 totalBooksPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 877, 366, 15, 15));
 
-                Label totalBooksLabel = pc.CreateLabel($"Total Books", new Point(20, 20), new Font("Poppins", 15, FontStyle.Bold),Color.White, new Size(200,30));
+                Label totalBooksLabel = pc.CreateLabel($"Total Books", new Point(20, 20), new Font("Poppins", 15, FontStyle.Bold), Color.White, new Size(200, 30));
                 totalBooksPanel.Controls.Add(totalBooksLabel);
 
-                
+
                 Color[] colors = { ColorTranslator.FromHtml("#FFE2E5"), ColorTranslator.FromHtml("#FFF4DE"), ColorTranslator.FromHtml("#DCFCE7"), ColorTranslator.FromHtml("#F3E8FF") };
                 Image[] images = { Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon1.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon2.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon3.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon4.png") };
                 int xPos = 20;
-                
+
                 int i = 0;
                 foreach (var bookGroup in mostReadBooks)
                 {
@@ -245,15 +245,15 @@ namespace LibraryDashboard
                     bookPanel.Controls.Add(pictureBox);
                     Label bookCountLabel = pc.CreateLabel($"{readCount}", new Point(10, 60), new Font("Poppins", 18, FontStyle.Bold), panelColor, new Size(100, 40));
                     bookCountLabel.ForeColor = ColorTranslator.FromHtml("#151D48");
-                    
-                    Label bookReadLabel = pc.CreateLabel($"{bookName}", new Point(10, 100), new Font("Poppins", 12, FontStyle.Regular),panelColor, new Size(160,50));
+
+                    Label bookReadLabel = pc.CreateLabel($"{bookName}", new Point(10, 100), new Font("Poppins", 12, FontStyle.Regular), panelColor, new Size(160, 50));
                     bookReadLabel.ForeColor = ColorTranslator.FromHtml("#425166");
 
                     bookPanel.Controls.Add(bookCountLabel);
                     bookPanel.Controls.Add(bookReadLabel);
                     totalBooksPanel.Controls.Add(bookPanel);
 
-                    xPos += 200; 
+                    xPos += 200;
                     i++;
                 }
 
@@ -263,7 +263,7 @@ namespace LibraryDashboard
                 // Books By Themes chart
                 Panel booksByThemesPanel = pc.CreatePanel(new Point(947, 20), new Size(542, 506), Color.White);
                 booksByThemesPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 542, 506, 20, 20));
-                Label booksByThemesLabel = pc.CreateLabel("Books By Themes", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200,40));
+                Label booksByThemesLabel = pc.CreateLabel("Books By Themes", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
                 LiveCharts.WinForms.PieChart booksByThemesChart = CreateDountChart(new Point(50, 50), new Size(470, 420), ReadBookThemes());
                 booksByThemesPanel.Controls.Add(booksByThemesLabel);
                 booksByThemesPanel.Controls.Add(booksByThemesChart);
@@ -282,7 +282,7 @@ namespace LibraryDashboard
                 Panel overduePanel = pc.CreatePanel(new Point(700, 540), new Size(420, 319), Color.White);
                 overduePanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 420, 319, 20, 20));
                 Label overdueLabel = pc.CreateLabel("Overdue", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                overduePanel.Controls.Add(overdueLabel); 
+                overduePanel.Controls.Add(overdueLabel);
                 LiveCharts.WinForms.CartesianChart overdueChart = CreateLineChart(new Point(20, 60), new Size(400, 250), OverDue());
                 overduePanel.Controls.Add(overdueChart);
                 this.Controls.Add(overduePanel);
@@ -292,7 +292,7 @@ namespace LibraryDashboard
                 Panel teachersVsStudentsPanel = pc.CreatePanel(new Point(1140, 540), new Size(371, 319), Color.White);
                 teachersVsStudentsPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 371, 319, 20, 20));
                 Label teachersVsStudentsLabel = pc.CreateLabel("Teachers vs Students", new Point(20, 20), new Font("Segoe UI", 12, FontStyle.Bold), Color.White, new Size(200, 40));
-                LiveCharts.WinForms.CartesianChart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 60), new Size(334, 157),data());
+                LiveCharts.WinForms.CartesianChart teachersVsStudentsChart = CreateBarChartStudTeach(new Point(0, 60), new Size(334, 157), data());
                 var query = data().First();
                 Label totalLabel = new Label
                 {
@@ -310,7 +310,7 @@ namespace LibraryDashboard
             }
         }
 
-        
+
 
         private LiveCharts.WinForms.CartesianChart CreateBarChartStudTeach(Point location, Size size, IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
         {
@@ -354,7 +354,7 @@ namespace LibraryDashboard
 
 
 
-        
+
 
 
         private LiveCharts.WinForms.PieChart CreateDountChart(Point location, Size size, IEnumerable<(string BookThemes, int UsageCount, int SumThemes)> ReadBookThemes)
@@ -377,7 +377,7 @@ namespace LibraryDashboard
                     Values = new ChartValues<double> { percentage },
                     DataLabels = true,
                     LabelPoint = chartPoint => $" {chartPoint.Y:F2}%",
-                    Foreground = System.Windows.Media.Brushes.Black, 
+                    Foreground = System.Windows.Media.Brushes.Black,
                     FontWeight = System.Windows.FontWeights.Bold,
                     LabelPosition = PieLabelPosition.OutsideSlice
                 });
@@ -387,7 +387,7 @@ namespace LibraryDashboard
         }
 
 
-        
+
 
 
         private LiveCharts.WinForms.CartesianChart CreateBarChart(Point location, Size size, IEnumerable<(string BookCategory, int UsageCount)> ReadBookCategory)
@@ -423,7 +423,7 @@ namespace LibraryDashboard
 
         private LiveCharts.WinForms.CartesianChart CreateLineChart(Point location, Size size, IEnumerable<(DateTime Date, int StudentOverdue, int TeacherOverdue)> OverDue)
         {
-            
+
             var lineChart = new LiveCharts.WinForms.CartesianChart
             {
                 Location = location,
@@ -431,7 +431,7 @@ namespace LibraryDashboard
                 LegendLocation = LiveCharts.LegendLocation.Bottom
             };
 
-            
+
             LiveCharts.Wpf.LineSeries studentSeries = new LiveCharts.Wpf.LineSeries
             {
                 Title = "Student",
@@ -448,7 +448,7 @@ namespace LibraryDashboard
                         new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Transparent, 1)
                     }
                 },
-                PointGeometry = LiveCharts.Wpf.DefaultGeometries.Circle 
+                PointGeometry = LiveCharts.Wpf.DefaultGeometries.Circle
             };
 
             LiveCharts.Wpf.LineSeries teacherSeries = new LiveCharts.Wpf.LineSeries
@@ -467,10 +467,10 @@ namespace LibraryDashboard
                 new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Transparent, 1)
             }
                 },
-                PointGeometry = LiveCharts.Wpf.DefaultGeometries.Circle 
+                PointGeometry = LiveCharts.Wpf.DefaultGeometries.Circle
             };
 
-            
+
             foreach (var overdue in OverDue)
             {
                 studentSeries.Values.Add(overdue.StudentOverdue);
@@ -480,17 +480,17 @@ namespace LibraryDashboard
             lineChart.Series.Add(studentSeries);
             lineChart.Series.Add(teacherSeries);
 
-            
+
             lineChart.AxisX.Add(new LiveCharts.Wpf.Axis
             {
-                
+
                 Labels = OverDue.Select(o => o.Date.ToString("MMM")).ToList()
             });
 
-            
+
             lineChart.AxisY.Add(new LiveCharts.Wpf.Axis
             {
-                
+
                 LabelFormatter = value => value.ToString("N")
             });
 

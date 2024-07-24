@@ -3,25 +3,30 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using LibraryEntityForms.CodeFirst.Context;
+using System.IO;
 
 namespace LibraryDashboard.Navigation
 {
     public class TopNavigation : Panel
     {
+        private UserData ud;
+        private dynamic data;
 
-        UserData ud;
-        dynamic data;
-        
         private Button userButton;
         private PictureBox profilePicture;
         private Label userNameLabel;
         private PictureBox arrowPictureBox;
 
-        public TopNavigation(Form parentForm,dynamic data)
+        public TopNavigation(Form1 parentForm, dynamic data)
         {
-            ud=new UserData(parentForm,data, this);
-
+            ud = new UserData(parentForm, data, this);
             this.data = data;
+
+            InitializeComponents(parentForm);
+        }
+
+        private void InitializeComponents(Form parentForm)
+        {
             MaximumSize = new Size(1575, 120);
             Height = 120;
             Width = 1575;
@@ -55,9 +60,9 @@ namespace LibraryDashboard.Navigation
                 TextImageRelation = TextImageRelation.ImageBeforeText
             };
 
-            // Kullanıcı fotoğrafını veritabanından çekin
+            // Load user photo
             byte[] photoData = GetUserPhotoData(data.Id);
-            Image profileImage = photoData != null ? ByteArrayToImage(photoData) : Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
+            Image profileImage = photoData != null ? ByteArrayToImage(photoData) : GetDefaultProfileImage();
 
             profilePicture = new PictureBox
             {
@@ -87,7 +92,7 @@ namespace LibraryDashboard.Navigation
 
             arrowPictureBox = new PictureBox
             {
-                Image = Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_down.png"),
+                Image = Image.FromFile(GetArrowImagePath(false)),
                 SizeMode = PictureBoxSizeMode.Zoom,
                 Size = new Size(20, 20),
                 Location = new Point(userButton.Width - 30, userButton.Height / 2 - 20 / 2)
@@ -98,9 +103,7 @@ namespace LibraryDashboard.Navigation
             userButton.Click += (sender, e) =>
             {
                 panelVisible = !panelVisible;
-                arrowPictureBox.Image = Image.FromFile(panelVisible ?
-                    "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_up.png" :
-                    "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_down.png");
+                arrowPictureBox.Image = Image.FromFile(GetArrowImagePath(panelVisible));
                 ud.Visible = panelVisible;
             };
 
@@ -127,35 +130,42 @@ namespace LibraryDashboard.Navigation
 
         private Image ByteArrayToImage(byte[] byteArrayIn)
         {
+            if (byteArrayIn == null || byteArrayIn.Length == 0)
+            {
+                return GetDefaultProfileImage();
+            }
+
             using (var ms = new MemoryStream(byteArrayIn))
             {
-                if (ms == null || ms.Length == 0)
-                {
-                    // Varsayılan bir resim döndür
-                    return Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
-                }
-
-                ms.Position = 0;
-
                 try
                 {
                     return Image.FromStream(ms);
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine("Görüntü verisi geçerli değil: " + ex.Message);
-                    return Image.FromFile("path_to_default_image.jpg"); // Varsayılan resim
+                    Console.WriteLine("Invalid image data: " + ex.Message);
+                    return GetDefaultProfileImage();
                 }
             }
         }
 
-        public void UpdateProfilePicture(byte[] photoData)
+        private Image GetDefaultProfileImage()
         {
-            Image profileImage = photoData != null ? ByteArrayToImage(photoData) : Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
-
-            profilePicture.Image = ResizeImage(profileImage, new Size(60, 60));
+            return Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
         }
 
+        private string GetArrowImagePath(bool isPanelVisible)
+        {
+            return isPanelVisible ?
+                "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_up.png" :
+                "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_down.png";
+        }
+
+        public void UpdateProfilePicture(byte[] photoData)
+        {
+            Image profileImage = photoData != null ? ByteArrayToImage(photoData) : GetDefaultProfileImage();
+            profilePicture.Image = ResizeImage(profileImage, new Size(60, 60));
+        }
 
         private Image ResizeImage(Image imgToResize, Size size)
         {

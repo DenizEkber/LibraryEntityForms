@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryEntityForms.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20240722112154_InitialCreate")]
+    [Migration("20240723081113_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -426,6 +426,10 @@ namespace LibraryEntityForms.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

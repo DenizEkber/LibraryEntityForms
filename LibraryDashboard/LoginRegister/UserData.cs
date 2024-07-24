@@ -1,10 +1,12 @@
 ﻿using LibraryDashboard.Design;
+using LibraryDashboard.Helpers;
 using LibraryDashboard.Navigation;
 using LibraryEntityForms.CodeFirst.Context;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LibraryDashboard.LoginRegister
@@ -22,86 +24,67 @@ namespace LibraryDashboard.LoginRegister
         public UserData(Form parentForm, dynamic data, TopNavigation topNavigation)
         {
             this.user = data;
+            this.topNavigation = topNavigation;
+
+            // Initialize Panel properties
             this.Size = new Size(400, 400);
             this.Location = new Point(1000, 150);
             this.BackColor = Color.FromArgb(242, 242, 242);
             this.BorderStyle = BorderStyle.FixedSingle;
             this.Visible = false;
             this.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 400, 400, 15, 15));
-            this.topNavigation = topNavigation;
             parentForm.Controls.Add(this);
+
             InitializeDashboard();
             this.BringToFront();
         }
 
         private void InitializeDashboard()
         {
-            var containerPanel = new Panel
-            {
-                Size = new Size(360, 340),
-                Location = new Point(20, 20),
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(20)
-            };
+            var containerPanel = PanelHelper.CreatePanel(new Size(360, 340),
+                new Point(20, 20), Color.White, BorderStyle.FixedSingle);
             containerPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 360, 340, 15, 15));
 
-            var titleLabel = new Label
-            {
-                Text = "User Profile",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 122, 204),
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
+            var titleLabel = PanelHelper.CreateLabel("User Profile", new Font("Segoe UI", 18, FontStyle.Bold), Color.FromArgb(0, 122, 204), new Point(20, 20), true);
             containerPanel.Controls.Add(titleLabel);
 
-            lblUserName = CreateLabel($"Username: {user.UserName}", new Point(20, 60));
-            lblFullName = CreateLabel($"Full Name: {user.FirstName} {user.LastName}", new Point(20, 100));
-            lblEmail = CreateLabel($"Email: {user.Email}", new Point(20, 140));
-            lblRole = CreateLabel($"Role: {user.Role}", new Point(20, 180));
+            lblUserName = PanelHelper.CreateLabel($"Username: {user.UserName}", new Font("Segoe UI", 14, FontStyle.Bold), Color.FromArgb(64, 64, 64), new Point(20, 60), true);
+            lblFullName = PanelHelper.CreateLabel($"Full Name: {user.FirstName} {user.LastName}", new Font("Segoe UI", 14, FontStyle.Bold), Color.FromArgb(64, 64, 64), new Point(20, 100), true);
+            lblEmail = PanelHelper.CreateLabel($"Email: {user.Email}", new Font("Segoe UI", 14, FontStyle.Bold), Color.FromArgb(64, 64, 64), new Point(20, 140), true);
+            lblRole = PanelHelper.CreateLabel($"Role: {user.Role}", new Font("Segoe UI", 14, FontStyle.Bold), Color.FromArgb(64, 64, 64), new Point(20, 180), true);
 
             containerPanel.Controls.Add(lblUserName);
             containerPanel.Controls.Add(lblFullName);
             containerPanel.Controls.Add(lblEmail);
             containerPanel.Controls.Add(lblRole);
 
-            // Fotoğraf yükle
+            // Load and set profile picture
             byte[] photoData = GetUserPhotoData(user.Id);
-            Image profileImage = photoData != null ? ByteArrayToImage(photoData) : Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
+            Image profileImage = photoData != null ? ByteArrayToImage(photoData) :
+                Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
 
             profilePicture = new PictureBox
             {
-                Image = ResizeImage(profileImage, new Size(100, 100)),
+                Image = PanelHelper.ResizeImage(profileImage, new Size(100, 100)),
                 SizeMode = PictureBoxSizeMode.Zoom,
                 Size = new Size(100, 100),
                 Location = new Point(20, 220),
                 Cursor = Cursors.Hand
             };
-            profilePicture.Paint += (sender, e) =>
-            {
-                GraphicsPath path = new GraphicsPath();
-                path.AddEllipse(0, 0, profilePicture.Width - 1, profilePicture.Height - 1);
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                e.Graphics.DrawEllipse(Pens.Transparent, 0, 0, profilePicture.Width - 1, profilePicture.Height - 1);
-                profilePicture.Region = new Region(path);
-            };
+            profilePicture.Paint += ProfilePicture_Paint;
             profilePicture.Click += ProfilePicture_Click;
             containerPanel.Controls.Add(profilePicture);
 
             this.Controls.Add(containerPanel);
         }
 
-        private Label CreateLabel(string text, Point location)
+        private void ProfilePicture_Paint(object sender, PaintEventArgs e)
         {
-            return new Label
-            {
-                Text = text,
-                Location = location,
-                Font = new Font("Segoe UI", 14, FontStyle.Regular),
-                ForeColor = Color.FromArgb(64, 64, 64),
-                AutoSize = true
-            };
+            GraphicsPath path = new GraphicsPath();
+            path.AddEllipse(0, 0, profilePicture.Width - 1, profilePicture.Height - 1);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.DrawEllipse(Pens.Transparent, 0, 0, profilePicture.Width - 1, profilePicture.Height - 1);
+            profilePicture.Region = new Region(path);
         }
 
         private void ProfilePicture_Click(object sender, EventArgs e)
@@ -109,7 +92,7 @@ namespace LibraryDashboard.LoginRegister
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Image Files|*.jpg;*.jpeg;*.png;",
-                Title = "Fotoğraf Seçin"
+                Title = "Select Photo"
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -117,8 +100,8 @@ namespace LibraryDashboard.LoginRegister
                 byte[] photoData = File.ReadAllBytes(openFileDialog.FileName);
                 SaveUserPhotoData(user.Id, photoData);
 
-                // Fotoğrafı güncelleyin
-                profilePicture.Image = ResizeImage(ByteArrayToImage(photoData), new Size(100, 100));
+                // Update profile picture
+                profilePicture.Image = PanelHelper.ResizeImage(ByteArrayToImage(photoData), new Size(100, 100));
                 topNavigation.UpdateProfilePicture(photoData);
             }
         }
@@ -151,7 +134,6 @@ namespace LibraryDashboard.LoginRegister
             {
                 if (ms == null || ms.Length == 0)
                 {
-                    // Varsayılan bir resim döndür
                     return Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
                 }
 
@@ -163,15 +145,10 @@ namespace LibraryDashboard.LoginRegister
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine("Görüntü verisi geçerli değil: " + ex.Message);
-                    return Image.FromFile("path_to_default_image.jpg"); // Varsayılan resim
+                    Console.WriteLine("Invalid image data: " + ex.Message);
+                    return Image.FromFile("path_to_default_image.jpg"); // Default image path
                 }
             }
-        }
-
-        private Image ResizeImage(Image imgToResize, Size size)
-        {
-            return new Bitmap(imgToResize, size);
         }
     }
 }

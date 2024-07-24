@@ -56,7 +56,7 @@ namespace LibraryEntityForms.ConsoleApp
  };
 
                  context.Departments.AddRange(departments);
-                 context.SaveChanges();
+                 context.SaveChanges()
 
                  var libraries = new List<Libs>
  {

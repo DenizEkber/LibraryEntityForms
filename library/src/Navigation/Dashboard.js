@@ -74,7 +74,7 @@ const Dashboard = () => {
               const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
               const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
               const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
-              // Yüzdelik hesaplaması
+              
               const percent = ((value / totalThemesUsage) * 100).toFixed(2);
               return (
                 <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">

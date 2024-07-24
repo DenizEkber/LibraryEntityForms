@@ -1,131 +1,187 @@
 ﻿using LibraryDashboard.Design;
-using LibraryDashboard.Navigation;
+using LibraryDashboard.Helpers;
+using Microsoft.VisualBasic.Logging;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryDashboard.LoginRegister
 {
     internal class Menu : Panel
     {
+        private Button btnLogin;
+        private Button btnRegister;
+        private SpeechRecognizerService speechRecognizerService;
+        private Form1 parentForm;
 
         private SpeechRecognitionEngine recognizer;
         private SpeechSynthesizer synthesizer;
         private bool isListeningForCommand;
-        private Button btnLogin;
-        private Button btnRegister;
-        private PanelCreated pc;
-        private Form1 parentForm;
+        private Login login;
+        private Register register;
 
         public Menu(Form1 parentForm)
         {
+            parentForm.Text = "Library System";
             this.parentForm = parentForm;
             this.Size = new Size(1920, 1075);
             this.Location = new Point(0, 0);
-            this.BackColor = ColorTranslator.FromHtml("#0095FF");
-
+            this.BackColor = Color.Transparent;
             parentForm.Controls.Add(this);
             ShowDashboard();
-            InitializeSpeechRecognition();
+            //this.Resize += new EventHandler(Menu_Resize);
+            //this.Anchor = (/*/AnchorStyles.Bottom | AnchorStyles.Right*/  AnchorStyles.Top | AnchorStyles.Right);
+            //this.Dock = DockStyle.Fill;
+            this.Paint += new PaintEventHandler(Menu_Paint);
         }
-        private System.Drawing.Image ResizeImage(System.Drawing.Image imgToResize, Size size)
+
+        private void Menu_Paint(object sender, PaintEventArgs e)
         {
-            return new Bitmap(imgToResize, size);
+            // Gradyan renklerini belirleyin
+            Color color1 = ColorTranslator.FromHtml("#0095FF");
+            Color color2 = ColorTranslator.FromHtml("#07E098");
+
+            // Gradyan fırçası oluşturun
+            using (LinearGradientBrush brush = new LinearGradientBrush(this.ClientRectangle, color1, color2, 90F))
+            {
+                e.Graphics.FillRectangle(brush, this.ClientRectangle);
+            }
         }
+        private void Menu_Resize(object sender, EventArgs e)
+        {
+            // PictureBox yeniden boyutlandırma
+            foreach (Control control in this.Controls)
+            {
+                if (control is PictureBox pictureBox)
+                {
+                    pictureBox.Size = new Size(this.ClientSize.Width / 4, this.ClientSize.Height / 4);
+                    pictureBox.Location = new Point((this.ClientSize.Width - pictureBox.Width) / 2, this.ClientSize.Height / 3);
+                }
+                else if (control is Label label)
+                {
+                    if (label.Text == "EagleVision")
+                    {
+                        label.Font = new Font("Segoe UI", this.ClientSize.Width / 20, FontStyle.Regular);
+                        label.Location = new Point((this.ClientSize.Width - label.Width) / 2, (this.ClientSize.Height - 950) / 2);
+                    }
+                    else if (label.Text == "Don't mess with simple people. Eagles fly high.")
+                    {
+                        label.Font = new Font("Segoe UI", this.ClientSize.Width / 50, FontStyle.Regular);
+                        label.Location = new Point((this.ClientSize.Width - label.Width) / 2, (this.ClientSize.Height - 600) / 2);
+                    }
+                }
+                else if (control is Panel mainPanel)
+                {
+                    mainPanel.Size = new Size(this.ClientSize.Width / 4, this.ClientSize.Height / 6);
+                    mainPanel.Location = new Point((this.Width - mainPanel.Width) / 2, (this.Height + 150) / 2);
+
+                    // İçindeki butonları yeniden boyutlandırma ve konumlandırma
+                    foreach (Control panelControl in mainPanel.Controls)
+                    {
+                        if (panelControl is Button button)
+                        {
+                            button.Size = new Size(mainPanel.Width / 3, mainPanel.Height / 3);
+                            button.Font = new Font("Segoe UI", mainPanel.Width / 25, FontStyle.Regular);
+                            button.Left = (mainPanel.Width - button.Width) / 2;
+                            if (button == btnLogin)
+                            {
+                                button.Top = mainPanel.Height / 5;
+                            }
+                            else if (button == btnRegister)
+                            {
+                                button.Top = (mainPanel.Height / 5) * 3;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public void ShowDashboard()
         {
             // Creating a central panel
-            
-            pc = new PanelCreated();
-            Label picture = new Label {
-                ImageAlign = ContentAlignment.MiddleLeft,
-                Size = new Size(300, 200),
-                Font = new System.Drawing.Font("Segoe UI", 20, FontStyle.Regular),
-                ForeColor = Color.Black,
-                BackColor = Color.Transparent,
-                FlatStyle = FlatStyle.Flat,
-                Padding = new Padding(20, 0, 20, 0),
-                Margin = new Padding(0, 10, 0, 10),
-                Top = 300, // Üst konumunu ayarla
-                Left = 795 // Sol konumunu ayarla
-            };
-            picture.Image = ResizeImage(System.Drawing.Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png"), new Size(300, 300));
-            Label topLabel = pc.CreateLabel("EagleVision", new Point((this.Width - 650) / 2, (this.Height - 950) / 2), new System.Drawing.Font("Segoe UI", 70, FontStyle.Regular), ColorTranslator.FromHtml("#0095FF"), new Size(700, 200));
-            Label coolLabel = pc.CreateLabel("Don't mess with simple people. Eagles fly high.", new Point((this.Width - 730) / 2, (this.Height - 600) / 2), new System.Drawing.Font("Segoe UI", 20, FontStyle.Regular), ColorTranslator.FromHtml("#0095FF"), new Size(800, 200));
-            topLabel.ForeColor = Color.White;
-            coolLabel.ForeColor = Color.White;
-            Panel mainPanel = pc.CreatePanel(new Point(0, 0), new Size(500, 300), ColorTranslator.FromHtml("#07E098"));
-            mainPanel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 500, 300, 15, 15));
-            mainPanel.Location = new Point((this.Width - mainPanel.Width) / 2, (this.Height ) / 2);
-            this.Controls.Add(picture);
-            this.Controls.Add(coolLabel);
-            this.Controls.Add(topLabel);
+            //Environment.UserName
+            var picture = PanelHelper.CreatePictureBox(null, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png", new Size(300, 300), new Point(795, 300));
+            picture.BorderStyle = BorderStyle.None;
 
-            // Styling and positioning Login Button
-            Button btnLogin = new RoundedButton
+            var topLabel = PanelHelper.CreateLabel("EagleVision", new Font("Segoe UI", 70, FontStyle.Regular), Color.Black, new Point((this.ClientSize.Width - 650) / 2, (this.ClientSize.Height - 950) / 2), true);
+            var coolLabel = PanelHelper.CreateLabel("Don't mess with simple people. Eagles fly high.", new Font("Segoe UI", 20, FontStyle.Regular), Color.Black, new Point((this.ClientSize.Width - 730) / 2, (this.ClientSize.Height - 600) / 2), true);
+            
+            var mainPanel = PanelHelper.CreatePanel(new Size(500, 300), new Padding(0), ColorTranslator.FromHtml("#07E098"), new Padding(0));
+            mainPanel.BorderStyle = BorderStyle.None;
+            mainPanel.BackColor = Color.Transparent;
+            mainPanel.Location = new Point((this.Width - mainPanel.Width) / 2, (this.Height + 150) / 2);
+
+            
+            btnLogin = new RoundedButton
             {
                 Text = "Login",
                 TextAlign = ContentAlignment.MiddleRight,
                 ImageAlign = ContentAlignment.MiddleLeft,
                 Size = new Size(150, 60),
-                Font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Regular),
+                Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 ForeColor = Color.Gray,
-                BackColor = Color.White, // Tüm butonların arka plan rengi başlangıçta beyaz
+                BackColor = Color.White,
                 Padding = new Padding(20, 0, 20, 0),
                 Margin = new Padding(0, 10, 0, 10),
-                Top = 100, // Üst konumunu ayarla
-                Left = 50 // Sol konumunu ayarla
+                Top = 100,
+                Left = 300
             };
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.Click += BtnLogin_Click;
             mainPanel.Controls.Add(btnLogin);
 
-            // Styling and positioning Register Button
-            Button btnRegister = new RoundedButton
+            btnRegister = new RoundedButton
             {
                 Text = "Register",
                 TextAlign = ContentAlignment.MiddleRight,
                 ImageAlign = ContentAlignment.MiddleLeft,
                 Size = new Size(150, 60),
-                Font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Regular),
+                Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 ForeColor = Color.Gray,
-                BackColor = Color.White, // Tüm butonların arka plan rengi başlangıçta beyaz
+                BackColor = Color.White,
                 Padding = new Padding(20, 0, 20, 0),
                 Margin = new Padding(0, 10, 0, 10),
-                Top = 100, // Üst konumunu ayarla
-                Left = 300 // Sol konumunu ayarla
+                Top = 100,
+                Left = 50
             };
             btnRegister.FlatAppearance.BorderSize = 0;
             btnRegister.Click += BtnRegister_Click;
             mainPanel.Controls.Add(btnRegister);
 
+            this.Controls.Add(picture);
+            this.Controls.Add(coolLabel);
+            this.Controls.Add(topLabel);
             this.Controls.Add(mainPanel);
+
+            InitializeSpeechRecognition();
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            Login loginPanel = new Login(parentForm);
-            loginPanel.BringToFront();
+            var login = new Login(parentForm);
+            login.BringToFront();
         }
 
         private void BtnRegister_Click(object sender, EventArgs e)
         {
-            Register registerPanel = new Register(parentForm);
-            registerPanel.BringToFront();
+            var register = new Register(parentForm);
+            register.BringToFront();
         }
 
-
-
-
+        /*private void InitializeSpeechRecognition()
+        {
+            speechRecognizerService = new SpeechRecognizerService(parentForm, new Login(parentForm), new Register(parentForm));
+        }*/
         private void InitializeSpeechRecognition()
         {
             recognizer = new SpeechRecognitionEngine();
             synthesizer = new SpeechSynthesizer();
 
-            
             var triggerCommands = new Choices();
             triggerCommands.Add("Hey Jarvis");
 
@@ -150,6 +206,7 @@ namespace LibraryDashboard.LoginRegister
 
             isListeningForCommand = false;
         }
+
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             if (!isListeningForCommand)
@@ -181,45 +238,42 @@ namespace LibraryDashboard.LoginRegister
                         break;
                 }
 
-                isListeningForCommand = false; 
+                isListeningForCommand = false;
             }
         }
-        Login login;
-        Register register;
+
         private void ShowLoginPanel()
         {
-            /*Form menuForm = this.FindForm();
-            if (menuForm != null)
-            {
-                menuForm.Controls.Remove(this);
-                this.Dispose();
-            }*/
             login = new Login(parentForm);
-            login.BringToFront();
-            
-        }
-        private void HideLogin()
-        {
-            login.Visible = false;
+            if (login != null)
+            {
+                login.BringToFront();
+            }
         }
 
-        private void HideRegister()
+        private void HideLogin()
         {
-            register.Visible = false;
+            if (login != null)
+            {
+                login.Visible = false;
+            }
         }
 
         private void ShowRegisterPanel()
         {
-            /*Form menuForm = this.FindForm();
-            if (menuForm != null)
-            {
-                menuForm.Controls.Remove(this);
-                this.Dispose();
-            }*/
             register = new Register(parentForm);
-            register.BringToFront();
-            
+            if (register != null)
+            {
+                register.BringToFront();
+            }
         }
 
+        private void HideRegister()
+        {
+            if (register != null)
+            {
+                register.Visible = false;
+            }
+        }
     }
 }

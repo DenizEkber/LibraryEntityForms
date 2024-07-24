@@ -81,15 +81,15 @@ namespace LibraryDashboard
             Label nameLabel = PanelHelper.CreateLabel(library.Name, new Font("Arial", 14, FontStyle.Bold), Color.DarkBlue, new Point(120, 10));
             panel.Controls.Add(nameLabel);
 
-            // Address
+            
             /*Label addressLabel = PanelHelper.CreateLabel(library.Address, new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 40));
             panel.Controls.Add(addressLabel);
 
-            // Phone Number
+            
             Label phoneLabel = PanelHelper.CreateLabel($"Phone: {library.PhoneNumber}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 70));
             panel.Controls.Add(phoneLabel);
 
-            // Email
+            
             Label emailLabel = PanelHelper.CreateLabel($"Email: {library.Email}", new Font("Arial", 12, FontStyle.Regular), Color.Black, new Point(120, 100));
             panel.Controls.Add(emailLabel);*/
 

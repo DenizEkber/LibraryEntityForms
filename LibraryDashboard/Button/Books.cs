@@ -26,7 +26,7 @@ namespace LibraryDashboard
             InitializeDashboard();
         }
 
-        private void InitializeDashboard()
+        private async void InitializeDashboard()
         {
             flowLayoutPanel = new FlowLayoutPanel
             {
@@ -62,7 +62,8 @@ namespace LibraryDashboard
                                       ThemeName = theme.Name,
                                       CategoryName = category.Name,
                                       PressName = press.Name,
-                                      PhotoData = book.PhotoData // Assuming this is the Base64 string
+                                      PhotoData = book.PhotoData 
+
                                   }).ToListAsync();
 
                 DisplayBooks(data);
@@ -71,7 +72,7 @@ namespace LibraryDashboard
 
         private void DisplayBooks(IEnumerable<dynamic> books)
         {
-            flowLayoutPanel.Controls.Clear(); // Clear previous data
+            flowLayoutPanel.Controls.Clear(); 
 
             foreach (var book in books)
             {

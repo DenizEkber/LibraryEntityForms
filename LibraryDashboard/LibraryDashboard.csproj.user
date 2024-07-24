@@ -13,6 +13,9 @@
     <Compile Update="Button\Library.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Button\Setting.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Button\Student.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -20,6 +23,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="ControlBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Design\PanelHelper.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Design\RoundedButton.cs">

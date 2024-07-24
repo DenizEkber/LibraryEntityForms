@@ -1,12 +1,12 @@
-﻿using LibraryDashboard.Design;
-using LibraryDashboard.Navigation;
+﻿using LibraryDashboard.Helpers;
 using LibraryEntityForms.CodeFirst.Context;
-using LibraryEntityForms.CodeFirst.Entity.UserData;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,17 +14,12 @@ namespace LibraryDashboard.LoginRegister
 {
     internal class Login : Panel
     {
-        PanelCreated pc;
-        private TextBox txtUserName;
+        private TextBox txtUserEmail;
         private TextBox txtPassword;
         private Button btnLogin;
         private Label lblMessage;
         private Form1 parentForm;
-        private SpeechRecognitionEngine recognizer;
-        private SpeechSynthesizer synthesizer;
-        private bool isListeningForCommand;
-        private bool isSettingUsername;
-        private bool isSettingPassword;
+
 
         public Login(Form1 parentForm)
         {
@@ -35,177 +30,59 @@ namespace LibraryDashboard.LoginRegister
 
             parentForm.Controls.Add(this);
             InitializeDashboard();
-            //InitializeSpeechRecognition();
         }
 
         private void InitializeDashboard()
         {
-            pc = new PanelCreated();
-
-            Panel panel = pc.CreatePanel(new Point(0, 0), new Size(400, 250), Color.White);
-            panel.Region = System.Drawing.Region.FromHrgn(RoundCorner.CreateRoundRectRgn(0, 0, 400, 250, 15, 15));
+            Panel panel = PanelHelper.CreatePanel(new Size(400, 250), new Padding(0), Color.White, new Padding(0));
             panel.Location = new Point((this.Width - panel.Width) / 2, (this.Height - panel.Height) / 2);
-            panel.BorderStyle = BorderStyle.FixedSingle;
 
-            Label lblUserName = new Label
-            {
-                Text = "Username:",
-                Location = new Point(20, 30),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
-                ForeColor = Color.Black
-            };
+            Label lblUserName = PanelHelper.CreateLabel("Username:", new Font("Segoe UI", 12F), Color.Black, new Point(20, 30));
             panel.Controls.Add(lblUserName);
 
-            txtUserName = new TextBox
-            {
-                Location = new Point(120, 30),
-                Size = new Size(240, 30),
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
-            };
-            panel.Controls.Add(txtUserName);
+            txtUserEmail = PanelHelper.CreateTextBox(new Point(120, 30), new Size(240, 30), new Font("Segoe UI", 12F));
+            txtUserEmail.KeyDown += TxtUserEmail_KeyDown;
+            panel.Controls.Add(txtUserEmail);
 
-            Label lblPassword = new Label
-            {
-                Text = "Password:",
-                Location = new Point(20, 80),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
-                ForeColor = Color.Black
-            };
+            Label lblPassword = PanelHelper.CreateLabel("Password:", new Font("Segoe UI", 12F), Color.Black, new Point(20, 80));
             panel.Controls.Add(lblPassword);
 
-            txtPassword = new TextBox
-            {
-                Location = new Point(120, 80),
-                Size = new Size(240, 30),
-                UseSystemPasswordChar = true,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
-            };
+            txtPassword = PanelHelper.CreateTextBox(new Point(120, 80), new Size(240, 30), new Font("Segoe UI", 12F), true);
+            txtPassword.KeyDown += TxtPassword_KeyDown;
             panel.Controls.Add(txtPassword);
 
-            btnLogin = new Button
-            {
-                Text = "Login",
-                Location = new Point(130, 130),
-                Size = new Size(140, 40),
-                BackColor = Color.FromArgb(0, 122, 204),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
-                FlatStyle = FlatStyle.Flat
-            };
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.Click += BtnLogin_Click;
+            btnLogin = PanelHelper.CreateButton("Login", new Point(130, 130), new Size(140, 40), Color.FromArgb(0, 122, 204), Color.White, new Font("Segoe UI", 12F, FontStyle.Bold), BtnLogin_Click);
             panel.Controls.Add(btnLogin);
 
-            Button btnBack = new RoundedButton
-            {
-                Text = "Back",
-                Location = new Point(20, 20),
-                Size = new Size(150, 40),
-                BackColor = Color.FromArgb(200, 0, 0),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
-                FlatStyle = FlatStyle.Flat
-            };
-            btnBack.FlatAppearance.BorderSize = 0;
-            btnBack.Click += BtnBack_Click;
+            Button btnBack = PanelHelper.CreateButton("Back", new Point(20, 20), new Size(150, 40), Color.FromArgb(200, 0, 0), Color.White, new Font("Segoe UI", 12F, FontStyle.Bold), BtnBack_Click);
             this.Controls.Add(btnBack);
 
-            lblMessage = new Label
-            {
-                Location = new Point(20, 180),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point)
-            };
+            lblMessage = PanelHelper.CreateLabel(string.Empty, new Font("Segoe UI", 10F), Color.Black, new Point(20, 180));
             panel.Controls.Add(lblMessage);
 
             this.Controls.Add(panel);
         }
 
-        private void InitializeSpeechRecognition()
+        private void TxtUserEmail_KeyDown(object sender, KeyEventArgs e)
         {
-            recognizer = new SpeechRecognitionEngine();
-            synthesizer = new SpeechSynthesizer();
-
-
-            var triggerCommands = new Choices();
-            triggerCommands.Add("Hey Jarvis");
-
-            var grammarTrigger = new Grammar(new GrammarBuilder(triggerCommands));
-            recognizer.LoadGrammar(grammarTrigger);
-
-            var commands = new Choices();
-            commands.Add("login");
-            commands.Add("register");
-            commands.Add("Back to login");
-            commands.Add("Back to register");
-
-            var grammarBuilder = new GrammarBuilder();
-            grammarBuilder.Append(commands);
-
-            var grammarCommands = new Grammar(grammarBuilder);
-            recognizer.LoadGrammar(grammarCommands);
-
-            recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
-            recognizer.SetInputToDefaultAudioDevice();
-            recognizer.RecognizeAsync(RecognizeMode.Multiple);
-
-            isListeningForCommand = false;
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPassword.Focus(); 
+                e.SuppressKeyPress = true; 
+            }
         }
 
-        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!isListeningForCommand)
+            if (e.KeyCode == Keys.Enter)
             {
-                if (e.Result.Text == "Hey Jarvis")
-                {
-                    synthesizer.SpeakAsync("Yes sir.");
-                    isListeningForCommand = true;
-                }
+                BtnLogin_Click(sender, e); 
             }
-            else if (isSettingUsername)
-            {
-                txtUserName.Text = e.Result.Text;
-                isSettingUsername = false;
-                lblMessage.Text = "Username set.";
-                lblMessage.ForeColor = Color.Green;
-                isListeningForCommand = false;
-            }
-            else if (isSettingPassword)
-            {
-                txtPassword.Text = e.Result.Text;
-                isSettingPassword = false;
-                lblMessage.Text = "Password set.";
-                lblMessage.ForeColor = Color.Green;
-                isListeningForCommand = false;
-            }
-            else
-            {
-                switch (e.Result.Text)
-                {
-                    case "set username":
-                        isSettingUsername = true;
-                        lblMessage.Text = "Please say the username.";
-                        lblMessage.ForeColor = Color.Blue;
-                        break;
-                    case "set password":
-                        isSettingPassword = true;
-                        lblMessage.Text = "Please say the password.";
-                        lblMessage.ForeColor = Color.Blue;
-                        break;
-                    case "login":
-                        BtnLogin_Click(btnLogin, EventArgs.Empty);
-                        break;
-                }
-            }
-            
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-
             var menuPanel = parentForm.Controls.OfType<Menu>().FirstOrDefault();
             if (menuPanel != null)
             {
@@ -215,10 +92,10 @@ namespace LibraryDashboard.LoginRegister
 
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
-            var userName = txtUserName.Text;
-            var password = txtPassword.Text;
+            var userEmail = txtUserEmail.Text.Trim();
+            var password = txtPassword.Text.Trim();
 
-            var user = await Task.Run(() => GetUserData(userName, password));
+            var user = await Task.Run(() => GetUserData(userEmail, password));
 
             if (user != null)
             {
@@ -250,24 +127,48 @@ namespace LibraryDashboard.LoginRegister
             }
         }
 
-        private dynamic GetUserData(string userName, string password)
+        private dynamic GetUserData(string userEmail, string password)
         {
             using (var ctx = new LibraryContext())
             {
-                var data = (from user in ctx.Users
-                            join userDetail in ctx.UserDetail on user.Id equals userDetail.Id_User
-                            where user.Name == userName && user.Password == password
+                var user = (from u in ctx.Users
+                            join ud in ctx.UserDetail on u.Id equals ud.Id_User
+                            where ud.Email == userEmail
                             select new
                             {
-                                Id = user.Id,
-                                UserName = user.Name,
-                                Password = user.Password,
-                                Role = user.Role,
-                                Email = userDetail.Email,
-                                FirstName = userDetail.FirstName,
-                                LastName = userDetail.LastName
+                                u.Id,
+                                u.Name,
+                                u.Password,
+                                u.PasswordSalt,
+                                u.Role,
+                                ud.Email,
+                                ud.FirstName,
+                                ud.LastName
                             }).FirstOrDefault();
-                return data;
+
+                if (user != null && VerifyPassword(password, user.Password, user.PasswordSalt))
+                {
+                    return new
+                    {
+                        user.Id,
+                        UserName = user.Name,
+                        Role = user.Role,
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName
+                    };
+                }
+
+                return null;
+            }
+        }
+
+        private bool VerifyPassword(string enteredPassword, string storedHash, string storedSalt)
+        {
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(enteredPassword, Convert.FromBase64String(storedSalt), 10000))
+            {
+                string hash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(20));
+                return hash == storedHash;
             }
         }
     }

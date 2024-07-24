@@ -5,8 +5,10 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
-
 using System.Windows.Forms;
+using System.IO;
+using System.Collections.Generic;
+using LibraryDashboard.Helpers;
 
 namespace LibraryDashboard.Navigation
 {
@@ -15,40 +17,51 @@ namespace LibraryDashboard.Navigation
         private SpeechRecognitionEngine recognizer;
         private SpeechSynthesizer synthesizer;
         private bool isListeningForCommand;
-        private Role role;
+        private dynamic data;
         private int buttonTop = 130;
         private Form1 parentPanel;
-        private Button selectedButton = null; 
+        private Button selectedButton = null;
         private List<Button> navigationButtons = new List<Button>();
         private Dashboard dashboardPanel;
         private Books booksPanel;
         private Library libraryPanel;
         private Student studentPanel;
-        private Teacher teacherPanle;
+        private Teacher teacherPanel;
         private Author authorPanel;
+        private Setting settingPanel;
 
-        public LeftNavigation(Form1 parentForm, Role role)
+        public LeftNavigation(Form1 parentForm, dynamic data)
         {
             this.parentPanel = parentForm;
-            this.role = role;
+            this.data = data;
+            InitializePanel();
+            InitializePanels();
+            LibraryTop();
+            CreateNavigationItems();
+            InitializeSpeechRecognition();
+            SelectButton(navigationButtons[0]);
+        }
+
+        private void InitializePanel()
+        {
             MaximumSize = new Size(345, 1195);
             Height = 1195;
             Width = 345;
             BackColor = Color.White;
             Location = new Point(0, 0);
-            Padding = new Padding(10); 
-            parentForm.Controls.Add(this);
+            Padding = new Padding(10);
+            parentPanel.Controls.Add(this);
+        }
 
-            dashboardPanel = new Dashboard(parentForm);
-            booksPanel = new Books(parentForm);
-            libraryPanel = new Library(parentForm);
-            studentPanel = new Student(parentForm);
-            teacherPanle = new Teacher(parentForm);
-            authorPanel = new Author(parentForm);
-            LibraryTop();
-            CreateNavigationItems();
-            InitializeSpeechRecognition();
-            SelectButton(navigationButtons[0]);
+        private void InitializePanels()
+        {
+            dashboardPanel = new Dashboard(parentPanel) { Name = "Dashboard" };
+            booksPanel = new Books(parentPanel) { Name = "Books" };
+            libraryPanel = new Library(parentPanel) { Name = "Library" };
+            studentPanel = new Student(parentPanel) { Name = "Students" };
+            teacherPanel = new Teacher(parentPanel) { Name = "Teacher" };
+            authorPanel = new Author(parentPanel) { Name = "Authors" };
+            settingPanel = new Setting(parentPanel,data) { Name = "Settings" };
         }
 
         private void LibraryTop()
@@ -65,9 +78,9 @@ namespace LibraryDashboard.Navigation
                 FlatStyle = FlatStyle.Flat,
                 Padding = new Padding(20, 0, 20, 0),
                 Margin = new Padding(0, 10, 0, 10),
-                Image = ResizeImage(Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png"), new Size(50, 50)),
-                Top = 0, 
-                Left = 15 
+                Image = PanelHelper.ResizeImage(Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png"), new Size(50, 50)),
+                Top = 0,
+                Left = 15
             };
             Controls.Add(label);
         }
@@ -77,11 +90,13 @@ namespace LibraryDashboard.Navigation
             AddNavigationItem("Dashboard", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\dashboard.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\dashboard-white.png");
             AddNavigationItem("Books", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\book.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\book-white.png");
             AddNavigationItem("Library", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\library.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\library-white.png");
-            if (role == Role.Admin)
+
+            if (data.Role == Role.Admin)
             {
                 AddNavigationItem("Teacher", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\teacher.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\teacher-white.png");
                 AddNavigationItem("Students", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\student.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\student-white.png");
             }
+
             AddNavigationItem("Authors", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\author.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\author-white.png");
             AddNavigationItem("Settings", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\setting.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\setting-white.png");
             AddNavigationItem("Sign Out", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\sign-out.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\sign-out-white.png");
@@ -97,263 +112,141 @@ namespace LibraryDashboard.Navigation
                 Size = new Size(315, 60),
                 Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 ForeColor = Color.Gray,
-                BackColor = Color.White, 
+                BackColor = Color.White,
                 Padding = new Padding(20, 0, 20, 0),
                 Margin = new Padding(0, 10, 0, 10),
-                Image = ResizeImage(Image.FromFile(iconPath), new Size(32, 32)),
-                Tag = new string[] { iconPath, whiteIconPath }, 
-                Top = buttonTop, 
-                Left = 15 
+                Image = PanelHelper.ResizeImage(LoadImage(iconPath), new Size(32, 32)),
+                Tag = new string[] { iconPath, whiteIconPath },
+                Top = buttonTop,
+                Left = 15
             };
 
-            
-            button.Click += (sender, e) =>
-            {
-                var clickedButton = (Button)sender;
-                SelectButton(clickedButton);
-            };
+            button.Click += (sender, e) => SelectButton((Button)sender);
 
-            this.Controls.Add(button);
-            navigationButtons.Add(button); 
-
-            buttonTop += button.Height + 10; 
+            Controls.Add(button);
+            navigationButtons.Add(button);
+            buttonTop += button.Height + 10;
         }
 
         private void SelectButton(Button button)
         {
             if (selectedButton != null)
             {
-                
                 selectedButton.BackColor = Color.White;
                 selectedButton.ForeColor = Color.Gray;
                 string[] paths = (string[])selectedButton.Tag;
-                selectedButton.Image = ResizeImage(Image.FromFile(paths[0]), new Size(32, 32));
+                selectedButton.Image = PanelHelper.ResizeImage(LoadImage(paths[0]), new Size(32, 32));
             }
 
-            
             button.BackColor = Color.Blue;
             button.ForeColor = Color.White;
             string[] newPaths = (string[])button.Tag;
-            button.Image = ResizeImage(Image.FromFile(newPaths[1]), new Size(32, 32));
+            button.Image = PanelHelper.ResizeImage(LoadImage(newPaths[1]), new Size(32, 32));
 
             selectedButton = button;
 
-           
-            if (button.Text == "Dashboard")
-            {
-                dashboardPanel.Visible = true;
-            }
-            else 
-            {
-                dashboardPanel.Visible = false;
-            }
+            ShowPanel(button.Text);
 
-            if (button.Text == "Books")
+            if (button.Text == "Sign Out")
             {
-                booksPanel.Visible = true;
+                ClickSignOut();
             }
-            else
-            {
-                booksPanel.Visible = false;
-            }
-
-            if (button.Text == "Library")
-            {
-                libraryPanel.Visible = true;
-            }
-            else
-            {
-                libraryPanel.Visible = false;
-            }
-            if (button.Text == "Students")
-            {
-                studentPanel.Visible = true;
-            }
-            else
-            {
-                studentPanel.Visible = false;
-            }
-
-            if (button.Text == "Teacher")
-            {
-                teacherPanle.Visible = true;
-            }
-            else
-            {
-                teacherPanle.Visible = false;
-            }
-
-            if (button.Text == "Authors")
-            {
-                authorPanel.Visible = true;
-            }
-            else
-            {
-                authorPanel.Visible = false;
-            }
-
-            if(button.Text == "Sign Out")
-            {
-                Form dashboardForm = this.FindForm();
-                if (dashboardForm != null)
-                {
-                    //MessageBox.Show(dashboardForm.GetType().Name);
-
-                    /*dashboardForm.Controls.Remove(this);
-                    this.Dispose();*/
-
-                    var controlsToRemove = new List<Control>();
-                    //MessageBox.Show(control.GetType().Name);
-                    foreach (Control control in dashboardForm.Controls)
-                    {
-                        
-                        if (control is TopNavigation || control is Dashboard || control is UserData )
-                        {
-                            dashboardForm.Controls.Remove(control);
-                            control.Dispose();
-                        }
-                    }
-                    
-                    foreach (var control in controlsToRemove)
-                    {
-                        dashboardForm.Controls.Remove(control);
-                        control.Dispose();
-                    }
-
-
-                    dashboardForm.Controls.Remove(this);
-                    this.Dispose();
-
-                    Menu menu = new Menu(parentPanel);
-                }
-
-            }
-
         }
 
-        private void ShowDashboard()
+        private void ShowPanel(string panelName)
         {
-
-            dashboardPanel.Visible = true;
-            booksPanel.Visible = false;
-            libraryPanel.Visible = false;
-            teacherPanle.Visible = false;
-            studentPanel.Visible = false;
-            authorPanel.Visible = false;
+            foreach (var panel in new List<Panel> { dashboardPanel, booksPanel, libraryPanel, teacherPanel, studentPanel, authorPanel, settingPanel})
+            {
+                
+                panel.Visible = panel.Name == panelName;
+            }
         }
-        private void ShowBooks()
-        {
 
-            dashboardPanel.Visible = false;
-            booksPanel.Visible = true;
-            libraryPanel.Visible = false;
-            teacherPanle.Visible = false;
-            studentPanel.Visible = false;
-            authorPanel.Visible = false;
-        }
-        private void ShowLibrary()
-        {
-
-            dashboardPanel.Visible = false;
-            booksPanel.Visible = false;
-            libraryPanel.Visible = true;
-            teacherPanle.Visible = false;
-            studentPanel.Visible = false;
-            authorPanel.Visible = false;
-        }
-        private void ShowTeacher()
-        {
-
-            dashboardPanel.Visible = false;
-            booksPanel.Visible = false;
-            libraryPanel.Visible = false;
-            teacherPanle.Visible = true;
-            studentPanel.Visible = false;
-            authorPanel.Visible = false;
-        }
-        private void ShowStudents()
-        {
-
-            dashboardPanel.Visible = false;
-            booksPanel.Visible = false;
-            libraryPanel.Visible = false;
-            teacherPanle.Visible = false;
-            studentPanel.Visible = true;
-            authorPanel.Visible = false;
-        }
-        private void ShowAuthors()
-        {
-
-            dashboardPanel.Visible = false;
-            booksPanel.Visible = false;
-            libraryPanel.Visible = false;
-            teacherPanle.Visible = false;
-            studentPanel.Visible = false;
-            authorPanel.Visible = true;
-        }
         private void ClickSignOut()
         {
             Form dashboardForm = this.FindForm();
             if (dashboardForm != null)
             {
-                //MessageBox.Show(dashboardForm.GetType().Name);
-
-                /*dashboardForm.Controls.Remove(this);
-                this.Dispose();*/
-
-                var controlsToRemove = new List<Control>();
-                //MessageBox.Show(control.GetType().Name);
-                foreach (Control control in dashboardForm.Controls)
-                {
-                    switch (control)
-                    {
-                        case UserData:
-                            
-                            
-                        case Dashboard:
-                            
-                            
-                        case TopNavigation:
-                            dashboardForm.Controls.Remove(control);
-                            control.Dispose();
-                            break;
-                            
-                    }
-                    /*if (control is TopNavigation || control is Dashboard || control is UserData )
-                    {
-                        dashboardForm.Controls.Remove(control);
-                        control.Dispose();
-                    }*/
-                }
-                foreach (var control in controlsToRemove)
+                // Remove all controls in the dashboardForm that are of type TopNavigation, Dashboard, or UserData
+                foreach (Control control in dashboardForm.Controls.OfType<TopNavigation>().ToList())
                 {
                     dashboardForm.Controls.Remove(control);
                     control.Dispose();
                 }
 
+                foreach (Control control in dashboardForm.Controls.OfType<Dashboard>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Author>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Books>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Library>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Setting>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Student>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+                foreach (Control control in dashboardForm.Controls.OfType<Teacher>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
 
+                foreach (Control control in dashboardForm.Controls.OfType<UserData>().ToList())
+                {
+                    dashboardForm.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                // Remove and dispose of the current instance (this)
                 dashboardForm.Controls.Remove(this);
                 this.Dispose();
 
-                Menu menu = new Menu(parentPanel);
+                // Optionally, you can force a refresh of the form to ensure UI update
+                dashboardForm.Invalidate();
+                dashboardForm.Update();
+
+                // Create a new instance of Menu and add it to the form
+                new Menu(parentPanel);
             }
         }
 
 
-
-
-
-
-        private Image ResizeImage(Image imgToResize, Size size)
+        private Image LoadImage(string path)
         {
-            return new Bitmap(imgToResize, size);
+            try
+            {
+                return Image.FromFile(path);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Error loading image: {ex.Message}");
+                return null; // Or return a default image
+            }
         }
 
         private void InitializeSpeechRecognition()
         {
             recognizer = new SpeechRecognitionEngine();
             synthesizer = new SpeechSynthesizer();
-
 
             var triggerCommands = new Choices();
             triggerCommands.Add("Hey Jarvis");
@@ -383,6 +276,7 @@ namespace LibraryDashboard.Navigation
 
             isListeningForCommand = false;
         }
+
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             if (!isListeningForCommand)
@@ -398,22 +292,22 @@ namespace LibraryDashboard.Navigation
                 switch (e.Result.Text)
                 {
                     case "dashboard":
-                        ShowDashboard();
+                        ShowPanel("Dashboard");
                         break;
                     case "book":
-                        ShowBooks();
+                        ShowPanel("Books");
                         break;
                     case "library":
-                        ShowLibrary();
+                        ShowPanel("Library");
                         break;
                     case "teacher":
-                        ShowTeacher();
+                        ShowPanel("Teacher");
                         break;
                     case "student":
-                        ShowStudents();
+                        ShowPanel("Students");
                         break;
                     case "author":
-                        ShowAuthors();
+                        ShowPanel("Authors");
                         break;
                     case "sign out":
                         ClickSignOut();
@@ -421,12 +315,10 @@ namespace LibraryDashboard.Navigation
                     case "how are you today":
                         synthesizer.SpeakAsync("Thanks, I'm fine today. You?");
                         break;
-
                     default:
-                        synthesizer.SpeakAsync("I didn't understand that command.");
+                        synthesizer.SpeakAsync("Sorry, I didn't understand that command.");
                         break;
                 }
-
                 isListeningForCommand = false;
             }
         }

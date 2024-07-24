@@ -129,5 +129,37 @@ namespace LibraryDashboard.Helpers
 
             return lineChart;
         }
+
+        public static CartesianChart CreateColumnChart(IEnumerable<(DateTime Month, int TeachersCount, int StudentsCount, int totalStudents, int totalTeachers)> data)
+        {
+            var chart = new CartesianChart();
+
+            var studentSeries = new ColumnSeries
+            {
+                Title = "Students",
+                Values = new ChartValues<int>(),
+                DataLabels = true
+            };
+            var teacherSeries = new ColumnSeries
+            {
+                Title = "Teachers",
+                Values = new ChartValues<int>(),
+                DataLabels = true
+            };
+            var labels = new List<string>();
+
+            foreach (var item in data)
+            {
+                studentSeries.Values.Add(item.StudentsCount);
+                teacherSeries.Values.Add(item.TeachersCount);
+                labels.Add(item.Month.ToString("MMM yyyy"));
+            }
+
+            chart.Series = new SeriesCollection { studentSeries, teacherSeries };
+            chart.AxisX.Add(new Axis { Title = "Month", Labels = labels });
+            chart.AxisY.Add(new Axis { Title = "Usage Count" });
+
+            return chart;
+        }
     }
 }

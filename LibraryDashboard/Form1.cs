@@ -18,11 +18,15 @@ namespace LibraryDashboard
         public Form1()
         {
             this.isLogin=isLogin;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.Text = "Library System";
+            //ControlBar controlBar =new ControlBar(this);
             InitializeComponent();
             
 
-        }
 
+        }
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
@@ -59,7 +63,7 @@ namespace LibraryDashboard
         {
             this.Controls.Clear();
             TopNavigation topNavigation = new TopNavigation(this, data);
-            LeftNavigation leftNavigation = new LeftNavigation(this,data.Role);
+            LeftNavigation leftNavigation = new LeftNavigation(this,data);
         }
 
         /*private void InitializeSpeechRecognition()
