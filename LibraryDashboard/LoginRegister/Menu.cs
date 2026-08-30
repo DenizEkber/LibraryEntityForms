@@ -105,7 +105,7 @@ namespace LibraryDashboard.LoginRegister
         {
             // Creating a central panel
             //Environment.UserName
-            var picture = PanelHelper.CreatePictureBox(null, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png", new Size(300, 300), new Point(795, 300));
+            var picture = PanelHelper.CreatePictureBox(null, @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\eaglevision.png", new Size(300, 300), new Point(795, 300));
             picture.BorderStyle = BorderStyle.None;
 
             var topLabel = PanelHelper.CreateLabel("EagleVision", new Font("Segoe UI", 70, FontStyle.Regular), Color.Black, new Point((this.ClientSize.Width - 650) / 2, (this.ClientSize.Height - 950) / 2), true);

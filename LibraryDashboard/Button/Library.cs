@@ -74,7 +74,7 @@ namespace LibraryDashboard
             Panel panel = PanelHelper.CreatePanel(new Size(720, 200), new Padding(10), Color.LightGray, new Padding(10));
 
             // Library Image
-            PictureBox pictureBox = PanelHelper.CreatePictureBox(library.PhotoData, "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\libraryImage.jpg", new Size(100, 100), new Point(10, 10));
+            PictureBox pictureBox = PanelHelper.CreatePictureBox(library.PhotoData, @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\libraryImage.jpg", new Size(100, 100), new Point(10, 10));
             panel.Controls.Add(pictureBox);
 
             // Library Name

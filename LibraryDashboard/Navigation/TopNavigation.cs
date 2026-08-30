@@ -151,14 +151,14 @@ namespace LibraryDashboard.Navigation
 
         private Image GetDefaultProfileImage()
         {
-            return Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
+            return Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\profileImage.jpg");
         }
 
         private string GetArrowImagePath(bool isPanelVisible)
         {
             return isPanelVisible ?
-                "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_up.png" :
-                "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\arrow_down.png";
+                @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\arrow_up.png" :
+                @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\arrow_down.png";
         }
 
         public void UpdateProfilePicture(byte[] photoData)

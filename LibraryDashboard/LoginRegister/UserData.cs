@@ -134,7 +134,7 @@ namespace LibraryDashboard.LoginRegister
             {
                 if (ms == null || ms.Length == 0)
                 {
-                    return Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\profileImage.jpg");
+                    return Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\profileImage.jpg");
                 }
 
                 ms.Position = 0;

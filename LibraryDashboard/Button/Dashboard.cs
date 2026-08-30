@@ -227,7 +227,10 @@ namespace LibraryDashboard
 
 
                 Color[] colors = { ColorTranslator.FromHtml("#FFE2E5"), ColorTranslator.FromHtml("#FFF4DE"), ColorTranslator.FromHtml("#DCFCE7"), ColorTranslator.FromHtml("#F3E8FF") };
-                Image[] images = { Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon1.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon2.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon3.png"), Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\TopBooks\\icon4.png") };
+                Image[] images = { Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\TopBooks\icon1.png"),
+                    Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\TopBooks\icon2.png"),
+                    Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\TopBooks\icon3.png"),
+                    Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\TopBooks\icon4.png") };
                 int xPos = 20;
 
                 int i = 0;

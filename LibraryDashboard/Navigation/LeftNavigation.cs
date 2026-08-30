@@ -78,7 +78,7 @@ namespace LibraryDashboard.Navigation
                 FlatStyle = FlatStyle.Flat,
                 Padding = new Padding(20, 0, 20, 0),
                 Margin = new Padding(0, 10, 0, 10),
-                Image = PanelHelper.ResizeImage(Image.FromFile("C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\eaglevision.png"), new Size(50, 50)),
+                Image = PanelHelper.ResizeImage(Image.FromFile(@$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\eaglevision.png"), new Size(50, 50)),
                 Top = 0,
                 Left = 15
             };
@@ -87,19 +87,19 @@ namespace LibraryDashboard.Navigation
 
         private void CreateNavigationItems()
         {
-            AddNavigationItem("Dashboard", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\dashboard.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\dashboard-white.png");
-            AddNavigationItem("Books", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\book.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\book-white.png");
-            AddNavigationItem("Library", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\library.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\library-white.png");
+            AddNavigationItem("Dashboard", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\dashboard.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\dashboard-white.png");
+            AddNavigationItem("Books", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\book.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\book-white.png");
+            AddNavigationItem("Library", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\library.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\library-white.png");
 
             if (data.Role == Role.Admin)
             {
-                AddNavigationItem("Teacher", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\teacher.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\teacher-white.png");
-                AddNavigationItem("Students", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\student.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\student-white.png");
+                AddNavigationItem("Teacher", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\teacher.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\teacher-white.png");
+                AddNavigationItem("Students", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\student.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\student-white.png");
             }
 
-            AddNavigationItem("Authors", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\author.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\author-white.png");
-            AddNavigationItem("Settings", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\setting.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\setting-white.png");
-            AddNavigationItem("Sign Out", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\sign-out.png", "C:\\Users\\LENOVO\\Desktop\\LibraryEntityForms\\LibraryDashboard\\icon\\sign-out-white.png");
+            AddNavigationItem("Authors", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\author.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\author-white.png");
+            AddNavigationItem("Settings", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\setting.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\setting-white.png");
+            AddNavigationItem("Sign Out", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\sign-out.png", @$"C:\Users\{Environment.UserName}\Documents\C#\MixProject\LibraryEntityForms\LibraryDashboard\icon\sign-out-white.png");
         }
 
         private void AddNavigationItem(string text, string iconPath, string whiteIconPath)
